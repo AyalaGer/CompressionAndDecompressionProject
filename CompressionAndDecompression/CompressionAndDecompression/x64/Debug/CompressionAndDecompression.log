@@ -1,0 +1,38 @@
+﻿  array.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\array.c(26,5): warning C4013: 'strcpy' undefined; assuming extern returning int
+  binaryFile.c
+  calculation.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\calculation.c(16,22): warning C4244: 'return': conversion from 'time_t' to 'long', possible loss of data
+  compare.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\compare.c(13,1): warning C4047: 'initializing': 'char *' differs in levels of indirection from 'int'
+  compress.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\compress.c(58,17): warning C4018: '<': signed/unsigned mismatch
+  decompress.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(13,29): warning C4477: 'fprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'time_t'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(13,29): message : consider using '%lld' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(13,29): message : consider using '%Id' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(13,29): message : consider using '%I64d' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(33,4): warning C4013: 'strcpy' undefined; assuming extern returning int
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(34,4): warning C4013: 'strncat' undefined; assuming extern returning int
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(47,29): warning C4477: 'fprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'time_t'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(47,29): message : consider using '%lld' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(47,29): message : consider using '%Id' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\decompress.c(47,29): message : consider using '%I64d' in the format string
+  dictionary.c
+  lzwCompressionDecompression.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\lzwCompressionDecompression.c(15,22): warning C4244: '=': conversion from 'time_t' to 'int', possible loss of data
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\lzwCompressionDecompression.c(24,21): warning C4477: 'fprintf' : format string '%ld' requires an argument of type 'long', but variadic argument 1 has type 'time_t'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\lzwCompressionDecompression.c(24,21): message : consider using '%lld' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\lzwCompressionDecompression.c(24,21): message : consider using '%Id' in the format string
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\lzwCompressionDecompression.c(24,21): message : consider using '%I64d' in the format string
+  main.c
+  parsing.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\parsing.c(23,17): warning C4013: 'strrchr' undefined; assuming extern returning int
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\parsing.c(26,2): warning C4013: 'strcpy' undefined; assuming extern returning int
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\parsing.c(23,1): warning C4047: 'initializing': 'char *' differs in levels of indirection from 'int'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\parsing.c(49,6): warning C4013: 'strcmp' undefined; assuming extern returning int
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\CompressionAndDecompression\parsing.c(51,3): warning C4013: 'strcat' undefined; assuming extern returning int
+  sequence.c
+  test.c
+  Generating Code...
+  CompressionAndDecompression.vcxproj -> C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
