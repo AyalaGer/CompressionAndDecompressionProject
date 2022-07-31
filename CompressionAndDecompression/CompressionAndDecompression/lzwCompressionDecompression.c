@@ -12,16 +12,20 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	//save the time and print it to logging file
 	time_t seconds;
 	time(&seconds);
+	struct tm* tm = localtime(&seconds);
 	details.startTime = seconds;
-	//open a logging file
-	FILE* fpLogFile = fopen("loggingfile.txt", "a+");
+	//open a log file
+	FILE* fpLogFile = fopen("logfile.txt", "a+");
 	if (fpLogFile == NULL) {
-		//print error and exit
+		printf("error");
 		exit(1);
 	}
-	fprintf(fpLogFile, "open logging file\n");
+	fprintf(fpLogFile, "open log file\n");
 	details.fpLogFile = fpLogFile;
-	fprintf(fpLogFile, "start exexcute at: %ld\n", seconds);
+	fprintf(fpLogFile, "start exexcute at: %s\n", asctime(tm));
+	//pass the arguments to parsing
+	//the function call compression or decompression 
 	char* outputFileName = parsing(filePath, mode);
+	//calculate the compression ratio and the running time
 	calculation();
 }

@@ -14,8 +14,7 @@ char** initArrray(int* status) {
 		fprintf(details.fpLogFile, "Unable to allocate the array for decompression.");
 		*status = 0;
 	}
-
-	else {
+	else 
 		for (int i = 0; i < 256; i++)
 		{
 			c = i;
@@ -25,25 +24,25 @@ char** initArrray(int* status) {
 			if (stringTable[i])
 				strcpy(stringTable[i], chr);
 			else {
-				fprintf(details.fpLogFile, "Unable to allocate array of chars .");
+				fprintf(details.fpLogFile, "Unable to allocate array of chars.");
 				*status = 0;
 			}
-
-		}
-	}
+		}	
 	return stringTable;
 }
 
-int addarray(char** stringTable, int* lastCodeInTable) {
-	/*char* insertString = malloc(sizeof(char))
-		strcpy(insertString, stringTable[prevCode]);
+int addarray(char** stringTable, int* lastCodeInTable, char firstChar, int prevCode) {
+	char* insertString = malloc(sizeof(char));
+	strcpy(insertString, stringTable[prevCode]);
 	strncat(insertString, &firstChar, 1);
 	stringTable = (char**)realloc(stringTable, sizeof(char*) * (*lastCodeInTable + 2));
 	if (stringTable != NULL) {
 		stringTable[++(*lastCodeInTable)] = malloc(sizeof(char));
 		strcpy(stringTable[*lastCodeInTable], insertString);
+		free(insertString);
 		return 1;
 	}
-	fprintf(details.fpLogFile, "Unable to allocate array of chars .");*/
+	fprintf(details.fpLogFile, "Unable to allocate array of chars.\n");
+	free(insertString);
 	return 0;
 }

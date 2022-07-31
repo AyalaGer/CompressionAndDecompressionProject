@@ -14,10 +14,15 @@
 
 struct Details details;
 
-void main(int argc, char* argv[])
+void main(/*int argc, char* argv[]*/)
 {
-	lzwCompressionDecompression(argv[1], argv[2]);
-
+	/*char* path = "source.txt";
+	char* mode = "compress";*/
+	if(argc>1)
+		lzwCompressionDecompression(argv[1], argv[2]);
+	else
+		printf("enter file path and mode:\n");
+	
 	//char* write = "a+";
 	//if (argc == 1)
 	//	printf("hello perfect project main - not parameters inserted");
