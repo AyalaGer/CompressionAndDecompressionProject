@@ -7,12 +7,12 @@
 #include "detailsStruct.h"
 #include "binaryFile.h"
 #include "array.h"
-extern struct Details details;
+extern struct Details* details;
 
 int decompression(FILE* fpIn, FILE* fpOut) {
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
-	fprintf(details.fpLogFile, "Decompression process start at: %s.\n", asctime(tm));
+	fprintf(details->fpLogFile, "Decompression process start at: %s.\n", asctime(tm));
 	//prevCode- contains the previous code in the file.
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
@@ -26,7 +26,7 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//read first code from the input file
 	prevCode = readBinary(fpIn);
 	if (prevCode == 0) 
-		fprintf(details.fpLogFile, "empty decompress file: %s\n",details.outputFilePath);
+		fprintf(details->fpLogFile, "empty decompress file: %s\n",details->outputFilePath);
 	//write to output file the translation of the first code-stringTable[prevCode] .
 	fprintf(fpOut, "%s", stringTable[prevCode]);
 	//while(there is still data to read) , nextcode=read code
@@ -63,14 +63,14 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	free(outputStr);
 	t = time(NULL);
 	tm= localtime(&t);
-	fprintf(details.fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));
+	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));
 	if (closeFile(fpIn) ) {
-		fprintf(details.fpLogFile, "The compressed file closed successfully\n");
+		fprintf(details->fpLogFile, "The compressed file closed successfully\n");
 		if (closeFile(fpOut)) {
-			fprintf(details.fpLogFile, "The decompressed file closed successfully\n");
+			fprintf(details->fpLogFile, "The decompressed file closed successfully\n");
 			return 1;
 		}
-		return 0
+		return 0;
 	}
 	return 0;
 }

@@ -2,7 +2,7 @@
 #include "compress.h"
 #include "decompress.h"
 #include "detailsStruct.h"
-extern struct Details details;
+extern struct Details* details;
 long int findSize(FILE* fp)
 {
 	fseek(fp, 0L, SEEK_END);
@@ -26,7 +26,7 @@ char* subString(char* fileName)
 	strcpy(nameWithoutExtension, fileName);
 	*dotPtr = '.';
 	strcpy(extension, ++dotPtr);
-	details.inputExtension = extension;
+	details->inputExtension = extension;
 	return nameWithoutExtension;
 }
 
@@ -38,22 +38,22 @@ char* parsing(char* sourceFilePath, char* mode)
 	FILE* outputFile;
 	FILE* sourceFile = fopen(sourceFilePath, "r");
 	if (sourceFile == NULL) {
-		fprintf(details.fpLogFile, "Can't opening the source file.\n");
+		fprintf(details->fpLogFile, "Can't opening the source file.\n");
 
 	}
-	details.inputFilePath = sourceFilePath;
-	fprintf(details.fpLogFile, "Opening the source file: %s .\n", sourceFilePath);
-	details.inputFileSize = findSize(sourceFile);
-	fprintf(details.fpLogFile, "Size of the source file is %ld bytes \n", details.inputFileSize);
+	details->inputFilePath = sourceFilePath;
+	fprintf(details->fpLogFile, "Opening the source file: %s .\n", sourceFilePath);
+	details->inputFileSize = findSize(sourceFile);
+	fprintf(details->fpLogFile, "Size of the source file is %ld bytes \n", details->inputFileSize);
 	char* outputFileName = subString(sourceFilePath);
 	if (strcmp(mode, "compression"))
 	{
 		strcat(outputFileName, ".lzw");
 		outputFile = fopen(outputFileName, "+a");
 		if (outputFile == NULL) {
-			fprintf(details.fpLogFile, "Can't opening the output file.\n");
+			fprintf(details->fpLogFile, "Can't opening the output file.\n");
 		}
-		fprintf(details.fpLogFile, "Opening the output file: %s.\n", outputFileName);
+		fprintf(details->fpLogFile, "Opening the output file: %s.\n", outputFileName);
 		compression(sourceFile, outputFile);
 	}
 	else if (strcmp(mode, "decompression"))
@@ -62,9 +62,9 @@ char* parsing(char* sourceFilePath, char* mode)
 		//The extension from the global table.
 		outputFile = fopen(outputFileName, "+a");
 		if (outputFile == NULL) {
-			fprintf(details.fpLogFile, "Can't opening the output file.\n");
+			fprintf(details->fpLogFile, "Can't opening the output file.\n");
 		}
-		fprintf(details.fpLogFile, "Opening the output file: %s.\n", outputFileName);
+		fprintf(details->fpLogFile, "Opening the output file: %s.\n", outputFileName);
 		decompression(sourceFile, outputFile);
 	}
 

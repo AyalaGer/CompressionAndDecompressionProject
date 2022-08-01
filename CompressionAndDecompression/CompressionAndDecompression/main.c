@@ -1,21 +1,23 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "compare.h"
-#include "compress.h"
-#include "decompress.h"
-#include "parsing.h"
+//#include "compare.h"
+//#include "compress.h"
+//#include "decompress.h"
+//#include "parsing.h"
 #include "lzwCompressionDecompression.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include "detailsStruct.h"
+extern struct Details* details;
 
 
 
 
-struct Details details;
 
-void main(/*int argc, char* argv[]*/)
+void main(int argc, char* argv[])
 {
+	details = allocateDetails();
+	printf("hello");
 	/*char* path = "source.txt";
 	char* mode = "compress";*/
 	if(argc>1)

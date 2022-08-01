@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "detailsStruct.h"
-extern struct Details details;
+extern struct Details* details;
 //init a dynamic array with 256 single charater strings
 char** initArrray(int* status) {
 	char chr[] = "  ";
@@ -11,7 +11,7 @@ char** initArrray(int* status) {
 	//Allocates an array of size 256
 	char** stringTable = (char**)malloc(sizeof(char*) * 256);
 	if (stringTable == NULL) {
-		fprintf(details.fpLogFile, "Unable to allocate the array for decompression.");
+		fprintf(details->fpLogFile, "Unable to allocate the array for decompression.");
 		*status = 0;
 	}
 	else 
@@ -24,7 +24,7 @@ char** initArrray(int* status) {
 			if (stringTable[i])
 				strcpy(stringTable[i], chr);
 			else {
-				fprintf(details.fpLogFile, "Unable to allocate array of chars.");
+				fprintf(details->fpLogFile, "Unable to allocate array of chars.");
 				*status = 0;
 			}
 		}	
@@ -42,7 +42,7 @@ int addarray(char** stringTable, int* lastCodeInTable, char firstChar, int prevC
 		free(insertString);
 		return 1;
 	}
-	fprintf(details.fpLogFile, "Unable to allocate array of chars.\n");
+	fprintf(details->fpLogFile, "Unable to allocate array of chars.\n");
 	free(insertString);
 	return 0;
 }

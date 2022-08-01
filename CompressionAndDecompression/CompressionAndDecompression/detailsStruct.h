@@ -9,4 +9,6 @@ struct Details {
 	int startTime;
 	FILE* fpLogFile;
 };
+struct Details* details;
+struct Details* allocateDetails();
 
