@@ -5,7 +5,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "test.h"
+#include "detailsStruct.h"
+extern struct Details* details;
 Sequence* replaceAppendSequence(Sequence* s, unsigned char c) {
 	Sequence* temp = copySequenceAppend(s, c);
 	deleteSequence(s);
@@ -25,9 +27,11 @@ Dict* initializeDict(unsigned int size) {
 	return dict;
 }
 
-//for the logging file
 
-void compression(FILE* fpSource, FILE* fpOutput) {
+int compression(FILE* fpSource, FILE* fpOutput) {
+	time_t t = time(NULL);
+	struct tm* tm = localtime(&t);
+	fprintf(details->fpLogFile, "The compression process starts at: %s.\n", asctime(tm));
 	//store the next character/byte
 	unsigned int character;
 	//will be the output eventually
@@ -41,7 +45,7 @@ void compression(FILE* fpSource, FILE* fpOutput) {
 	character = getc(fpSource);
 	Sequence* str = newSequence(character);
 
-	//or c!=-1?
+	//streaming the data
 	while (character != EOF) {
 		character = getc(fpSource);
 		Sequence* expandedStr = copySequenceAppend(str, character);
@@ -83,16 +87,19 @@ void compression(FILE* fpSource, FILE* fpOutput) {
 	/*writeBinary(fpOutput, code);*/
 	deleteSequence(str);
 	deleteDictDeep(dict);
-	//close output file
+	
 	//decompression
 	//comparison
-	fclose(fpOutput);
-
-}
-
-
-
-
-
-
-
+	t = time(NULL);
+	tm = localtime(&t);
+	fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", asctime(tm));
+	//close the files
+	if (closeFile(fpSource)) {
+		fprintf(details->fpLogFile, "The source file closed successfully\n");
+		if (closeFile(fpOutput)) {
+			fprintf(details->fpLogFile, "The compressed file closed successfully\n");
+			return 1;
+			return 0;
+		}
+		return 0;
+	}

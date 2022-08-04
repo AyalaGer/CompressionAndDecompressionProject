@@ -2,11 +2,9 @@
 #include <time.h>
 extern struct Details* details;
 
-
 double compressionRatio(int inFSize, int outFSize)
 {
 	return inFSize / outFSize;
-
 }
 
 long runningTime()
@@ -16,9 +14,21 @@ long runningTime()
 	return current_time - details->startTime;
 
 }
-void calculation()
+void calculation(char* mode)
 {
-	double ratio = compressionRatio(details->inputFileSize, details->outputFileSize);
-	long time = runningTime();
-	//return the results to the command line.
+	fprintf(details->fpLogFile, "calculation process has begun at: %ld.", time(NULL));
+	if (strcmp(mode, "compression")) {
+		double ratio = compressionRatio(details->inputFileSize, details->outputFileSize);
+		printf("%d", ratio);
+		long time = runningTime();
+		printf("%d", time);
+	}
+	else if (strcmp(mode, "decompression")) {
+		long time = runningTime();
+		printf("%d", time);
+	}
+	else {
+		ptintf("ERROR!");
+	}
+	fprintf(details->fpLogFile, "calculation process complited successfully at: %ld.", time(NULL));
 }
