@@ -1,14 +1,18 @@
 #define _CRT_SECURE_NO_WARNINGS
-#define TABLE_SIZE 4094
+#define TABLE_SIZE 1<<16
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "sequence.h"
 #include "test.h"
 #include "detailsStruct.h"
 #include "binaryFile.h"
 #include "array.h"
 extern struct Details* details;
-
+void writeToTxtFile(FILE* fp, Sequence* str) {
+	for (int i = 0; i < str->count; i++)
+		putc((unsigned int)str->data[i], fp);
+}
 int decompression(FILE* fpIn, FILE* fpOut) {
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
@@ -17,50 +21,46 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
 	//firstChar- save the first character of the output string.
-	char firstChar, * outputStr = malloc(sizeof(char)), * insertString = malloc(sizeof(char));
+	char firstChar;
+	Sequence* outputStr, * insertString;
 	int prevCode, nextCode, lastCodeInTable = 255, status = 1;
+	Sequence* stringTable[TABLE_SIZE];	
 	//Init the array
-	char** stringTable = initArrray(&status);
-	if (!status)//if unable to init the array.
-		return 0;
+	initArray(stringTable);
 	//read first code from the input file
-	prevCode = readBinary(fpIn);
-	if (prevCode == 0) 
-		fprintf(details->fpLogFile, "empty decompress file: %s\n",details->outputFilePath);
+	prevCode = read16bits(fpIn);
+	if (prevCode == -1) 
+		fprintf(details->fpLogFile, "The compressed file is empty\n");
 	//write to output file the translation of the first code-stringTable[prevCode] .
-	fprintf(fpOut, "%s", stringTable[prevCode]);
+	writeToTxtFile(fpOut, stringTable[prevCode]);
 	//while(there is still data to read) , nextcode=read code
-	while (nextCode = readBinary(fpIn) > 0) {
+	while ((nextCode = read16bits(fpIn)) != -1) {
 		//if the code doesn't yet exist in the array.
 		if (nextCode > lastCodeInTable) {
 			//outputStr=translation of prevCode
-			strcpy(outputStr, stringTable[prevCode]);
+			outputStr = stringTable[prevCode];	
 			//outputStr=outputStr+firstChar
-			strncat(outputStr, &firstChar, 1);
+			outputStr = copySequenceAppend(outputStr, firstChar);
 		}
 		else
-			strcpy(outputStr, stringTable[nextCode]);// outputStr=stringTable[nextCode] 
+			outputStr = stringTable[nextCode];
 		//write the str to the output file
-		fprintf(fpOut, "%s", outputStr);
+		writeToTxtFile(fpOut, outputStr);
 		//firstChar=first char of outputStr
-		firstChar = *outputStr;
+		firstChar = *(outputStr->data);
 		//if the table isn't too big
-		if (lastCodeInTable < TABLE_SIZE) {
-			strcpy(insertString, stringTable[prevCode]);
-			strncat(insertString, &firstChar, 1);
-			stringTable = (char**)realloc(stringTable, sizeof(char*) * (lastCodeInTable + 2));
-			stringTable[++lastCodeInTable] = malloc(sizeof(char));
-			strcpy(stringTable[lastCodeInTable], insertString);
-			/*if (!addarray(stringTable, &lastCodeInTable))
-				return 0;*/
+		if (lastCodeInTable + 1 < TABLE_SIZE) {
+			insertString = stringTable[prevCode];
+			insertString = copySequenceAppend(insertString, firstChar);
+			stringTable[++lastCodeInTable] = insertString;
 		}	
 		//prevCode save the current code
 		prevCode = nextCode;
 	}
-	//free the dynamic array and the other allocations
-	free(stringTable);
-	free(insertString);
-	free(outputStr);
+	//free the array and the other allocations
+	//deleteTable(stringTable);
+	deleteSequence(insertString);
+	deleteSequence(outputStr);
 	t = time(NULL);
 	tm= localtime(&t);
 	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));

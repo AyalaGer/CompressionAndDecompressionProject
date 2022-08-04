@@ -1,4 +1,4 @@
 #pragma once
 
 char* subString(char* fileName);
-char* parsing(char* sourceFilePath, char* mode);
+int parsing(char* sourceFilePath, char* mode);

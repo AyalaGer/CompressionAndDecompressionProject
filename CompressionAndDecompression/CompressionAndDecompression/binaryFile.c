@@ -1,6 +1,25 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+void write16bits(FILE* output, int code) {
+    int right = 0xFF;
+    int left = 0xFF00;
+    int bits = (left & code);
+    bits = bits >> 8;
+    fputc(bits, output);
+    bits = right & code;
+    fputc(bits, output);
+}
 
+int read16bits(FILE* output) {
+    int left = fgetc(output);
+    if (left == EOF)
+        return -1;
+    left = left << 8;
+    int right = fgetc(output);
+    if (right == EOF) return -1;
+    return (left | right);
+
+}
 
 
 int leftover = 0;

@@ -58,11 +58,11 @@ void compression(FILE* fpSource, FILE* fpOutput) {
 		else {
 			//searching without the next character
 			searchDict(dict, str, &code);
-			printf("found str: %s\n", str->data);
+			//printf("found str: %s\n", str->data);
 			//output 
 			// the code
-			printf("code %d \n", code);
-			writeBinary(fpOutput, code);
+			//printf("code %d \n", code);
+			write16bits(fpOutput, code);
 			/*if (nextCode >= (1 << (bits)) && bits < maxBits) {
 				bits++;
 			}*/
