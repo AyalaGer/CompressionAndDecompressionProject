@@ -79,98 +79,72 @@ int areFileSizesEquals(int sourceFileSize, int decompressedFileSize) {
 	return 0;
 }
 
-int chComparison(FILE* fpSource) {
-	char chInSurceFile = getc(fpSource);
-	char chInDecompressedFile = getc(fpOutputDecompression);
-	// over on the file character character untill the end of file.
-	while (chInSurceFile != EOF && chInDecompressedFile != EOF) {
-		//check if the characters are not the same.
-		if (chInSurceFile != chInDecompressedFile) {
-			//remove the decompressed file 
-			removeFile(pathOutputDecompression);
-			return 0;
-		}
-		//continue only if the characters are the same.
-		position++;
-		chInSurceFile = getc(fpSource);
-		chInDecompressedFile = getc(fpOutputDecompression);
-	}
-	//remove the decompressed file 
-	removeFile(pathOutputDecompression);
-	return 1;
-}
 
-int kComparison(FILE* fpSource, FILE* fpDecompressed) {
-	unsigned char fpSourceKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpSource.
-	unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
-	char* kInSurceFile = fread(fpSourceKBuffer, K_BUFFER_SIZE, 1, fpSource);
-	char* kInDecompressedFile = fread(fpDecompressedKBuffer, K_BUFFER_SIZE, 1, fpOutputDecompression);
+//int chComparison(FILE* fpSource) {
+//	char chInSurceFile = getc(fpSource);
+//	char chInDecompressedFile = getc(fpOutputDecompression);
+//	// over on the file character character untill the end of file.
+//	while (chInSurceFile != EOF && chInDecompressedFile != EOF) {
+//		//check if the characters are not the same.
+//		if (chInSurceFile != chInDecompressedFile) {
+//			//remove the decompressed file 
+//			removeFile(pathOutputDecompression);
+//			return 0;
+//		}
+//		//continue only if the characters are the same.
+//		position++;
+//		chInSurceFile = getc(fpSource);
+//		chInDecompressedFile = getc(fpOutputDecompression);
+//	}
+//	//remove the decompressed file 
+//	removeFile(pathOutputDecompression);
+//	return 1;
+//}
+
+
+int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[], unsigned char fpDecompressedKBuffer[], int fileSize) {
+
+	int countInSurceFile;
+	int countInDecompressedFile;
 	//over on the files kilobyte kilobyte untill comming to the end of file.
-	while (kInSurceFile != EOF && kInDecompressedFile != EOF) {
-		//compare between the both buffers.
-		if (!cmp(kInSurceFile, kInDecompressedFile)) {
-			//remove the decompressed file.
-			removeFile(pathOutputDecompression);
-			return 0;
-		}
-		//continue only if the buffers are the same.
-		position++;
-		kInSurceFile = fread(fpSourceKBuffer, K_BUFFER_SIZE, 1, fpSource);
-		kInDecompressedFile = fread(fpDecompressedKBuffer, K_BUFFER_SIZE, 1, fpOutputDecompression);
-	}
-	//remove the decompressed file.
-	removeFile(pathOutputDecompression);
-	return 1;
-}
 
-int mComparison(FILE* fpSource, FILE* fpDecompressed) {
-	unsigned char fpSourceMBuffer[M_BUFFER_SIZE]; // 1 mB buffer for the fpSource
-	unsigned char fpDecompressedMBuffer[M_BUFFER_SIZE]; // 1 mB buffer for the fpDecompressed
-	char* mInSurceFile = fread(fpSourceMBuffer, M_BUFFER_SIZE, 1, fpSource);
-	char* mInDecompressedFile = fread(fpDecompressedMBuffer, M_BUFFER_SIZE, 1, fpOutputDecompression);
-	//over on the files megabyte megabyte untill comming to the end of file.
-	while (mInSurceFile != EOF && mInDecompressedFile != EOF) {
-		//compare between the both buffers.
-		if (!cmp(mInSurceFile, mInDecompressedFile)) {
+	int amountCompare;
+	do
+	{
+		countInSurceFile = fread(fpSourceKBuffer, 1024, 1, fpSource);
+		countInDecompressedFile = fread(fpDecompressedKBuffer, 1024, 1, fpOutputDecompression);
+		amountCompare = countInSurceFile ? 1024 : (fileSize % 1024);
+		if (strncmp(fpSourceKBuffer, fpDecompressedKBuffer, amountCompare) != 0) {
 			//remove the decompressed file.
 			removeFile(pathOutputDecompression);
 			return 0;
 		}
-		//continue only if the buffers are the same.
-		position++;
-		mInSurceFile = fread(fpSourceMBuffer, M_BUFFER_SIZE, 1, fpSource);
-		mInDecompressedFile = fread(fpDecompressedMBuffer, M_BUFFER_SIZE, 1, fpOutputDecompression);
-	}
+	} while (countInSurceFile);
 	//remove the decompressed file.
 	removeFile(pathOutputDecompression);
 	return 1;
 }
 
 int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed) {
-	//check if effective to over character character.
-	if (sizeFile > 0 && sizeFile < 1024) {
-		if (chComparison(fpSouce, fpDeconpressed) != 1) {
-			//print to log file
-			fprintf(details->fpLogFile, "the chComparison not successes! at:  %s.", calcTime());
-			return 0;
-		}
-	}
+	////check if effective to over character character.
+	//if (sizeFile > 0 && sizeFile < 1024) {
+	//	if (chComparison(fpSouce, fpDeconpressed) != 1) {
+	//		//print to log file
+	//		fprintf(details->fpLogFile, "the chComparison not successes! at:  %s.", calcTime());
+	//		return 0;
+	//	}
+	//}
 	//check if effective to over kilobyte kilobyte.
-	else if (sizeFile >= 1024 && sizeFile < 1024 * 1024) {
-		if (kComparison(fpSouce, fpDeconpressed) != 1) {
+	if (sizeFile > 0) {
+		unsigned char fpSourceKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpSource.
+		unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
+		if (kComparison(fpSouce, fpSourceKBuffer, fpDecompressedKBuffer, sizeFile) != 1) {
 			//print to log file
 			fprintf(details->fpLogFile, "the kComparison not successes! at: %s.", calcTime());
 			return 0;
 		}
 	}
-	//check if effective to over megabyte megabyte.
-	else if (sizeFile >= 1024 * 1024) {
-		if (mComparison(fpSouce, fpDeconpressed) != 1) {
-			//print to log file
-			fprintf(details->fpLogFile, "the mComparison not successes! at:  %s.", calcTime());
-			return 0;
-		}
-	}
+
 	//the file size is not correct.
 	else {
 		//print to log file
@@ -189,6 +163,7 @@ int wrapCompare(FILE* fpSource, FILE* fpCompressed)
 
 	//Print to the log file the comparison process has begun.
 	fprintf(details->fpLogFile, "comparison process has begun at:  %s.", calcTime());
+
 
 	//open files and prints the status to the log file.
 	if (openFile(details->inputFilePath, fpSource, "r") == 1 && openFile(details->outputFilePath, fpCompressed, "a+") == 1) {
