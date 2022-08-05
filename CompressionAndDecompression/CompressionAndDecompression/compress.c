@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include "filesHandling.h"
 #include "detailsStruct.h"
+#include "compare.h"
 extern struct Details* details;
 Sequence* replaceAppendSequence(Sequence* s, unsigned char c) {
 	Sequence* temp = copySequenceAppend(s, c);
@@ -37,7 +38,7 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	//will be the output eventually
 	unsigned int code;
 	//initialize the table for 12 bits
-	unsigned int tableSize = 1 << 12;
+	unsigned int tableSize = 1 << 16;
 	printf("table size %d \n", tableSize);
 	Dict* dict = initializeDict(tableSize);
 	//keep track of table entries
@@ -98,8 +99,9 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 		fprintf(details->fpLogFile, "The source file closed successfully\n");
 		if (closeFile(fpOutput)) {
 			fprintf(details->fpLogFile, "The compressed file closed successfully\n");
-			return 1;
-			return 0;
+			return wrapCompare();
+			
+			
 		}
 		return 0;
 	}

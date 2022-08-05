@@ -27,23 +27,13 @@ int position = 0;
 
 
 
-//function to calculate the file size to verify which effective 'over on the file' to perform -
-//(over character character or over kilobyte kilobyte or megabyte megabyte).
-int fileSize(FILE* fp) {
-	// seek to end of file.
-	fseek(fp, 0, SEEK_END);
-	// get current file pointer.
-	int	size = ftell(fp);
-	// seek back to beginning of file.
-	fseek(fp, 0, SEEK_SET);
-	return size;
-}
+
 
 //function for the decompression proccess.
 int wrapDecompression(FILE* fpCompressed) {
 	//open the output Decompression file and print the status to the log file.
 
-	if (openFile(pathOutputDecompression, fpOutputDecompression, "a+") == 1) {
+	if (openFile(pathOutputDecompression, &fpOutputDecompression, "a+") == 1) {
 		//Call the decompression function
 		int decompressionResult = decompression(fpCompressed, fpOutputDecompression);
 		//check if the decompression proccess completed successfuly. and print the status to the log file.
@@ -116,7 +106,7 @@ int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[], unsigned char f
 		}
 	} while (countInSurceFile);
 	//remove the decompressed file.
-	removeFile(pathOutputDecompression);
+	//removeFile(pathOutputDecompression);(?)close before remove
 	return 1;
 }
 
@@ -151,8 +141,9 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 	return 1;
 }
 
-int wrapCompare(FILE* fpSource, FILE* fpCompressed)
+int wrapCompare()
 {
+	FILE* fpSource=NULL, *fpCompressed=NULL;
 	//The function gets two parameters:fpCompressedFile - a pointer to the compressed file and fpSource - pointer
 	// to the source file.
 
@@ -160,8 +151,8 @@ int wrapCompare(FILE* fpSource, FILE* fpCompressed)
 	fprintf(details->fpLogFile, "comparison process has begun at:  %s.", calcTime());
 
 
-	//open files and prints the status to the log file.
-	if (openFile(details->inputFilePath, fpSource, "r") == 1 && openFile(details->outputFilePath, fpCompressed, "a+") == 1) {
+	//open files and prints the status to the log file.(?)
+	if (openFile(details->inputFilePath, &fpSource, "r") == 1 && openFile(details->outputFilePath, &fpCompressed, "rb") == 1) {
 		//start decompression proccess.
 		int wrapDecompressionResult = wrapDecompression(fpCompressed);
 		//check if the decompression proccess failed.
@@ -171,8 +162,10 @@ int wrapCompare(FILE* fpSource, FILE* fpCompressed)
 			removeFile(pathOutputDecompression);
 			return 0;
 		}
+		openFile(pathOutputDecompression, &fpOutputDecompression,"r");
 		//continue if the decompression proccess completed successfuly.
 		//set the files size to variables
+		//(?) insert two lines to areFileSizesEquals
 		int decompressedFileSize = fileSize(fpOutputDecompression);
 		int sourceFileSize = details->inputFileSize;
 		//check if the files size are the same and continue only if it is.

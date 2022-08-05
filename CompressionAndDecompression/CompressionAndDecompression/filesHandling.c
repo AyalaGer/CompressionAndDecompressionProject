@@ -33,15 +33,25 @@ int removeFile(char* fPath) {
 	}
 }
 
+
+//function to calculate the file size to verify which effective 'over on the file' to perform -
+//(over character character or over kilobyte kilobyte or megabyte megabyte).
+int fileSize(FILE* fp) {
+	// seek to end of file.
+	fseek(fp, 0, SEEK_END);
+	// get current file pointer.
+	int	size = ftell(fp);
+	// seek back to beginning of file.
+	fseek(fp, 0, SEEK_SET);
+	return size;
+}
 long int findSize(FILE* fp)
 {
-	fseek(fp, 0L, SEEK_END);
-
-	// calculating the size of the file
-	long int size = ftell(fp);
-
-	// closing the file
-	fclose(fp);
-
+	// seek to end of file.
+	fseek(fp, 0, SEEK_END);
+	// get current file pointer.
+	int	size = ftell(fp);
+	// seek back to beginning of file.
+	fseek(fp, 0, SEEK_SET);
 	return size;
 }

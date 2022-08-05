@@ -28,4 +28,5 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	char* outputFileName = parsing(filePath, mode);
 	//calculate the compression ratio and the running time
 	calculation(mode);
+	fclose(details->fpLogFile);
 }

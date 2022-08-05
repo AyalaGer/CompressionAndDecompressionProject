@@ -42,7 +42,7 @@ int parsing(char* sourceFilePath, char* mode)
 	//params: source file path and mode,
 	//the func parses the params and
 	//according them perform compression or decompression
-	int stat;
+	int stat=0;
 	FILE* outputFile;
 	FILE* sourceFile = fopen(sourceFilePath, "r");
 	if (sourceFile == NULL) {
@@ -63,13 +63,13 @@ int parsing(char* sourceFilePath, char* mode)
 		}
 		fprintf(details->fpLogFile, "Opening the output file: %s.\n", outputFileName);
 		details->outputFilePath = outputFileName;
-		compression(sourceFile, outputFile);
+		stat=compression(sourceFile, outputFile);
 	}
 	else if (!strcmp(mode, "decompression"))
 	{
 		strcat(outputFileName, ".txt");
 		//The extension from the global table.
-		outputFile = fopen(outputFileName, "+a");
+		outputFile = fopen(outputFileName, "a+");
 		if (outputFile == NULL) {
 			fprintf(details->fpLogFile, "Failed while opening the output file: %s.\n", outputFileName);
 		}

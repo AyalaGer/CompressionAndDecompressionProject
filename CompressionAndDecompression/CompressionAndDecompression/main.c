@@ -18,8 +18,10 @@ void main(/*int argc, char* argv[]*/)
 {
 	
 	details = allocateDetails();
-	printf("hello");
-	char* path = "C:\\Users\\WIN 10\\Downloads\\source (1).txt";
+	
+	//char* path = "C:\\Users\\WIN 10\\Desktop\\filePath2.bin";
+	char* path = "C:\\Users\\WIN 10\\Desktop\\source (1).txt";
+	//char* path = "C:\\Users\\WIN 10\\Downloads\\source (1).lzw";
 	char* mode = "compression";
 	lzwCompressionDecompression(path, mode);
 	/*if(argc>1)
