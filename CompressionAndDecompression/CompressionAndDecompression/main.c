@@ -14,37 +14,17 @@ extern struct Details* details;
 
 
 
-void main(int argc, char* argv[])
+void main(/*int argc, char* argv[]*/)
 {
+	
 	details = allocateDetails();
 	printf("hello");
-	/*char* path = "source.txt";
-	char* mode = "compress";*/
-	if(argc>1)
+	char* path = "C:\\Users\\WIN 10\\Downloads\\source (1).txt";
+	char* mode = "compression";
+	lzwCompressionDecompression(path, mode);
+	/*if(argc>1)
 		lzwCompressionDecompression(argv[1], argv[2]);
 	else
-		printf("enter file path and mode:\n");
-	
-	//char* write = "a+";
-	//if (argc == 1)
-	//	printf("hello perfect project main - not parameters inserted");
-	//else if (argv[1]) {
-	//	//Console.WriteLine(argv[1]);
-	//	FILE* demo = fopen(argv[1], write);
-	//	fprintf(demo, "%s %s %s", "loves", "the", "life!!!!!!!!!!!");
-	//	fclose(demo);
-	//	FILE* demoo;
-	//	int display;
-	//	demo = fopen(argv[1], "r");
-	//	while (1) {
-	//		display = fgetc(demo);
-	//		if (feof(demo))
-	//			break;
-	//		printf("%c", display);
-	//	}
-	//	fclose(demo);
-	//}
-	//else if (argv[2]) {
-	//}
+		printf("enter file path and mode:\n");*/
 }
 

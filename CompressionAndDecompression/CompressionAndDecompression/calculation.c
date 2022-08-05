@@ -1,10 +1,13 @@
 #include "detailsStruct.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
+#include <string.h>
 extern struct Details* details;
 
-double compressionRatio(int inFSize, int outFSize)
+double compressionRatio()
 {
-	return inFSize / outFSize;
+	return details->outputFileSize / details->inputFileSize;
 }
 
 long runningTime()
@@ -16,19 +19,19 @@ long runningTime()
 }
 void calculation(char* mode)
 {
-	fprintf(details->fpLogFile, "calculation process has begun at: %ld.", time(NULL));
-	if (strcmp(mode, "compression")) {
-		double ratio = compressionRatio(details->inputFileSize, details->outputFileSize);
-		printf("%d", ratio);
+	fprintf(details->fpLogFile, "calculation process has begun at: %s.",calcTime());
+	if (!strcmp(mode, "compression")) {
+		double ratio = compressionRatio();
+		printf("%f", ratio);
 		long time = runningTime();
-		printf("%d", time);
+		printf("%ld", time);
 	}
-	else if (strcmp(mode, "decompression")) {
+	else if (!strcmp(mode, "decompression")) {
 		long time = runningTime();
-		printf("%d", time);
+		printf("%ld", time);
 	}
 	else {
-		ptintf("ERROR!");
+		printf("%s","ERROR!");
 	}
-	fprintf(details->fpLogFile, "calculation process complited successfully at: %ld.", time(NULL));
+	fprintf(details->fpLogFile, "calculation process complited successfully at: %s.", calcTime());
 }

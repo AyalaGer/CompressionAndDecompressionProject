@@ -48,7 +48,7 @@
     <ClInclude Include="sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="test.h">
+    <ClInclude Include="filesHandling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClCompile Include="sequence.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="test.c">
+    <ClCompile Include="filesHandling.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.c">

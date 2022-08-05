@@ -5,7 +5,7 @@
 #include "decompress.h"
 #include "compare.h"
 #include "detailsStruct.h"
-#include "test.h"
+#include "filesHandling.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -25,12 +25,7 @@ char* pathOutputDecompression = "outputDecompression.txt";
 //for knowing in error case the position thet the error occured.
 int position = 0;
 
-//function to calculate the current time.
-char* calcTime() {
-	time_t t = time(NULL);
-	struct tm* tm = localtime(&t);
-	return asctime(tm);
-}
+
 
 //function to calculate the file size to verify which effective 'over on the file' to perform -
 //(over character character or over kilobyte kilobyte or megabyte megabyte).

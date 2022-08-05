@@ -138,7 +138,7 @@
     <ClInclude Include="lzwCompressionDecompression.h" />
     <ClInclude Include="parsing.h" />
     <ClInclude Include="sequence.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="filesHandling.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="array.c" />
@@ -153,7 +153,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="parsing.c" />
     <ClCompile Include="sequence.c" />
-    <ClCompile Include="test.c" />
+    <ClCompile Include="filesHandling.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

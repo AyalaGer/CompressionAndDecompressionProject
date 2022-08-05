@@ -1,6 +1,5 @@
 #pragma once
 #include <stdio.h>
-char* calcTime();
 int fileSize(FILE* fp);
 int wrapDecompression(FILE* fpCompressed);
 int areFileSizesEquals(int sourceFileSize, int decompressedFileSize);

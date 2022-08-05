@@ -5,7 +5,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "test.h"
+#include "filesHandling.h"
 #include "detailsStruct.h"
 extern struct Details* details;
 Sequence* replaceAppendSequence(Sequence* s, unsigned char c) {
@@ -87,7 +87,7 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	/*writeBinary(fpOutput, code);*/
 	deleteSequence(str);
 	deleteDictDeep(dict);
-	
+
 	//decompression
 	//comparison
 	t = time(NULL);
@@ -103,3 +103,4 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 		}
 		return 0;
 	}
+}

@@ -1,4 +1,4 @@
 #pragma once
-double compressionRatio(int inFSize, int outFSize);
+double compressionRatio();
 long runningTime();
-void calculation();
+void calculation(char* mode);

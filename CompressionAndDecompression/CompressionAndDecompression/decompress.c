@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "sequence.h"
-#include "test.h"
+#include "filesHandling.h"
 #include "detailsStruct.h"
 #include "binaryFile.h"
 #include "array.h"
@@ -59,8 +59,8 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	}
 	//free the array and the other allocations
 	//deleteTable(stringTable);
-	deleteSequence(insertString);
-	deleteSequence(outputStr);
+	//deleteSequence(insertString);
+	//deleteSequence(outputStr);
 	t = time(NULL);
 	tm= localtime(&t);
 	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));

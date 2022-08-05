@@ -3,36 +3,42 @@
 #include "decompress.h"
 #include "detailsStruct.h"
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "filesHandling.h"
+#define EX_LEN 4
 extern struct Details* details;
-long int findSize(FILE* fp)
-{
-	fseek(fp, 0L, SEEK_END);
 
-	// calculating the size of the file
-	long int size = ftell(fp);
-
-	// closing the file
-	fclose(fp);
-
-	return size;
-}
 char* subString(char* fileName)
 {
+	printf("%s", fileName);
 	//Parameter: file name - path to the file
 	//The function cut the file path to name and extension.
 	//And return the name.
-	char* dotPtr = strrchr(fileName, '.');
-	char* nameWithoutExtension = NULL, * extension = NULL;
-	*dotPtr = '\0';
-	strcpy(nameWithoutExtension, fileName);
-	*dotPtr = '.';
-	strcpy(extension, ++dotPtr);
-	details->inputExtension = extension;
+	char chr, * nameWithoutExtension = (char*)malloc(sizeof(char) * strlen(fileName)- EX_LEN),
+		* extension = (char*)malloc(sizeof(char) * EX_LEN),
+		* tmp = (char*)malloc(sizeof(char) * strlen(fileName));
+	int cnt = 0;
+	printf("%d", sizeof(char) * strlen(fileName) - EX_LEN + 1);
+	strcpy(tmp, fileName);
+	printf("%s", tmp);
+	while (tmp &&(*tmp != '.')) {
+		cnt++;
+		tmp++;
+	}
+	tmp++;
+	strcpy(extension, tmp);
+	strncpy(nameWithoutExtension, fileName, cnt);
+	nameWithoutExtension[cnt] = '\0';
+	printf("%s", nameWithoutExtension);
+	printf("%s\n", extension);
+	printf("%s",nameWithoutExtension);
 	return nameWithoutExtension;
 }
 
 int parsing(char* sourceFilePath, char* mode)
 {
+	printf("%s\n", sourceFilePath);
 	//params: source file path and mode,
 	//the func parses the params and
 	//according them perform compression or decompression

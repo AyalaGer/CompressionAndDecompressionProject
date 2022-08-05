@@ -18,7 +18,7 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	FILE* fpLogFile = fopen("logfile.txt", "a+");
 	if (fpLogFile == NULL) {
 		printf("error");
-		exit(1);
+		exit(1);//check if good(?)
 	}
 	fprintf(fpLogFile, "open log file\n");
 	details->fpLogFile = fpLogFile;
@@ -27,5 +27,5 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	//the function call compression or decompression 
 	char* outputFileName = parsing(filePath, mode);
 	//calculate the compression ratio and the running time
-	calculation();
+	calculation(mode);
 }

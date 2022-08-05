@@ -11,4 +11,5 @@ struct Details {
 };
 struct Details* details;
 struct Details* allocateDetails();
+char* calcTime();
 
