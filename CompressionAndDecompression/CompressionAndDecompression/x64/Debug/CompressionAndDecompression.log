@@ -1,2 +1,13 @@
-﻿  decompress.c
-  CompressionAndDecompression.vcxproj -> C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
+﻿  compare.c
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(93,22): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(95,29): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(189,52): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(189,44): warning C4024: 'openFile': different types for formal and actual parameter 2
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(189,113): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(189,101): warning C4024: 'openFile': different types for formal and actual parameter 2
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(193,52): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(193,44): warning C4024: 'openFile': different types for formal and actual parameter 2
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(193,113): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(193,101): warning C4024: 'openFile': different types for formal and actual parameter 2
+C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\CompressionAndDecompression\compare.c(201): warning C4715: 'wrapCompare': not all control paths return a value
+  CompressionAndDecompression.vcxproj -> C:\אילה\בוטקמפ\ווסטרן דיגיטל בוטקמפ\project\perfect\CloneCompressionAndDecompression4\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe

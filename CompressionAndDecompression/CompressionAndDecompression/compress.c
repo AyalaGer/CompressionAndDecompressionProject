@@ -1,14 +1,14 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "dictionary.h"
-#include "compress.h"
-#include "binaryFile.h"
-#include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "dictionary.h"
+#include "binaryFile.h"
 #include "filesHandling.h"
 #include "detailsStruct.h"
 #include "compare.h"
+
 extern struct Details* details;
+
 Sequence* replaceAppendSequence(Sequence* s, unsigned char c) {
 	Sequence* temp = copySequenceAppend(s, c);
 	deleteSequence(s);
@@ -30,9 +30,7 @@ Dict* initializeDict(unsigned int size) {
 
 
 int compression(FILE* fpSource, FILE* fpOutput) {
-	time_t t = time(NULL);
-	struct tm* tm = localtime(&t);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression process starts at: %s.\n", asctime(tm));
+	fprintf(details->fpLogFile, "The compression process starts at: %s.\n", calcTime());
 	//store the next character/byte
 	unsigned int character;
 	//will be the output eventually
@@ -87,9 +85,8 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 
 	//decompression
 	//comparison
-	t = time(NULL);
-	tm = localtime(&t);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", asctime(tm));
+
+	fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", calcTime());
 	//close the files
 	if (closeFile(fpSource)) {
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The source file closed successfully\n");

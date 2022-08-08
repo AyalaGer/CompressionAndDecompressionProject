@@ -1,42 +1,35 @@
 #define _CRT_SECURE_NO_WARNINGS
 #define K_BUFFER_SIZE 1024
-#define M_BUFFER_SIZE 1024*1024
-#include "compress.h"
-#include "decompress.h"
-#include "compare.h"
-#include "detailsStruct.h"
-#include "filesHandling.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include "decompress.h"
+#include "detailsStruct.h"
+#include "filesHandling.h"
 
-//setting global variables.
+//Setting global variables.
 
-//to get the global array.
+//To get the global array.
 extern struct Details* details;
 
-//pointer to the  decompressed file.
+//Pointer to the  decompressed file.
 FILE* fpOutputDecompression;
 
-//path to the  decompressed file.
+//Path to the  decompressed file.
 char* pathOutputDecompression = "outputDecompression.txt";
 
-//for knowing in error case the position thet the error occured.
+//For knowing in error case the position that the error occured.
 int position = 0;
 
-
-
-
-
-//function for the decompression proccess.
+//Function for the decompression proccess.
 int wrapDecompression(FILE* fpCompressed) {
-	//open the output Decompression file and print the status to the log file.
+	//Open the output Decompression file and print the status to the log file.
 
 	if (openFile(pathOutputDecompression, &fpOutputDecompression, "a+") == 1) {
 		//Call the decompression function
 		int decompressionResult = decompression(fpCompressed, fpOutputDecompression);
-		//check if the decompression proccess completed successfuly. and print the status to the log file.
+		//Check if the decompression proccess completed successfuly. and print the status to the log file.
 		if (decompressionResult != 1) {
 			//print to log file
 			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "decompression in the comparison process failed at: %s.", calcTime());
@@ -53,7 +46,10 @@ int wrapDecompression(FILE* fpCompressed) {
 	}
 }
 
-int areFileSizesEquals(int sourceFileSize, int decompressedFileSize) {
+int areFileSizesEquals() {
+	//set the files size to variables
+	int decompressedFileSize = findSize(fpOutputDecompression);
+	int sourceFileSize = details->inputFileSize;
 	if (sourceFileSize == decompressedFileSize) {
 		//print to log file
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the size files are equals!!! at: %s.", calcTime());
@@ -68,45 +64,53 @@ int areFileSizesEquals(int sourceFileSize, int decompressedFileSize) {
 //int chComparison(FILE* fpSource) {
 //	char chInSurceFile = getc(fpSource);
 //	char chInDecompressedFile = getc(fpOutputDecompression);
-//	// over on the file character character untill the end of file.
+//	// Over on the file character character untill the end of file.
 //	while (chInSurceFile != EOF && chInDecompressedFile != EOF) {
 //		//check if the characters are not the same.
 //		if (chInSurceFile != chInDecompressedFile) {
-//			//remove the decompressed file 
+//			//Remove the decompressed file 
 //			removeFile(pathOutputDecompression);
 //			return 0;
 //		}
-//		//continue only if the characters are the same.
+//		//Continue only if the characters are the same.
 //		position++;
 //		chInSurceFile = getc(fpSource);
 //		chInDecompressedFile = getc(fpOutputDecompression);
 //	}
-//	//remove the decompressed file 
+//	//Remove the decompressed file 
 //	removeFile(pathOutputDecompression);
 //	return 1;
 //}
 
 
 int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[], unsigned char fpDecompressedKBuffer[], int fileSize) {
-
+	//Define the variables for the result from the fread function.
 	int countInSurceFile;
 	int countInDecompressedFile;
-	//over on the files kilobyte kilobyte untill comming to the end of file.
-
+	//Define the variable for knowing how many characters to compare in the last interation.
 	int amountCompare;
+	//Over on the files kilobyte kilobyte untill comming to the end of file.
 	do
 	{
-		countInSurceFile = fread(fpSourceKBuffer, 1024, 1, fpSource);
-		countInDecompressedFile = fread(fpDecompressedKBuffer, 1024, 1, fpOutputDecompression);
-		amountCompare = countInSurceFile ? 1024 : (fileSize % 1024);
+		//Read kilobyte characters from the source file.
+		countInSurceFile = fread(fpSourceKBuffer, K_BUFFER_SIZE, 1, fpSource);
+		//Read kilobyte characters from the decompressed file.
+		countInDecompressedFile = fread(fpDecompressedKBuffer, K_BUFFER_SIZE, 1, fpOutputDecompression);
+		//Calculate how many rest in the last buffer.
+		amountCompare = countInSurceFile ? K_BUFFER_SIZE : (fileSize % K_BUFFER_SIZE);
+		//Comparison if are the chunks the same.
 		if (strncmp(fpSourceKBuffer, fpDecompressedKBuffer, amountCompare) != 0) {
-			//remove the decompressed file.
+			//Close the decompressed file before the remove. (?) ask if success
+			closeFile(fpOutputDecompression);
+			//Remove the decompressed file.
 			removeFile(pathOutputDecompression);
 			return 0;
 		}
 	} while (countInSurceFile);
+	//Close the decompressed file before the remove. (?) ask if success
+	//closeFile(fpOutputDecompression);
 	//remove the decompressed file.
-	//removeFile(pathOutputDecompression);(?)close before remove
+	//removeFile(pathOutputDecompression);
 	return 1;
 }
 
@@ -121,6 +125,7 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 	//}
 	//check if effective to over kilobyte kilobyte.
 	if (sizeFile > 0) {
+		//Define the buffers with the relevant size.
 		unsigned char fpSourceKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpSource.
 		unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
 		if (kComparison(fpSouce, fpSourceKBuffer, fpDecompressedKBuffer, sizeFile) != 1) {
@@ -143,35 +148,32 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 
 int wrapCompare()
 {
-	FILE* fpSource=NULL, *fpCompressed=NULL;
-	//The function gets two parameters:fpCompressedFile - a pointer to the compressed file and fpSource - pointer
+	//Define two parameters:fpCompressed - a pointer to the compressed file and fpSource - pointer
 	// to the source file.
-
+	FILE* fpSource = NULL, * fpCompressed = NULL;
+	
 	//Print to the log file the comparison process has begun.
 	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "comparison process has begun at:  %s.", calcTime());
 
 
-	//open files and prints the status to the log file.(?)
+	//Open files and prints the status to the log file.
 	if (openFile(details->inputFilePath, &fpSource, "r") == 1 && openFile(details->outputFilePath, &fpCompressed, "rb") == 1) {
-		//start decompression proccess.
+		//Start decompression proccess.
 		int wrapDecompressionResult = wrapDecompression(fpCompressed);
-		//check if the decompression proccess failed.
+		//Check if the decompression proccess failed.
 		if (wrapDecompressionResult == 0) {
 			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The shell decompression in the comparison process failed at:  %s.", calcTime());
 			//remove the decompressed file 
 			removeFile(pathOutputDecompression);
 			return 0;
 		}
-		openFile(pathOutputDecompression, &fpOutputDecompression,"r");
+		openFile(pathOutputDecompression, &fpOutputDecompression, "r");
 		//continue if the decompression proccess completed successfuly.
-		//set the files size to variables
-		//(?) insert two lines to areFileSizesEquals
-		int decompressedFileSize = fileSize(fpOutputDecompression);
-		int sourceFileSize = details->inputFileSize;
+		
 		//check if the files size are the same and continue only if it is.
-		if (areFileSizesEquals(decompressedFileSize, sourceFileSize) == 1) {
+		if (areFileSizesEquals() == 1) {
 			//continue only if the goToTheRelevantComparison successfuly
-			if (goToTheRelevantComparison(sourceFileSize, fpSource, fpOutputDecompression) == 1) {
+			if (goToTheRelevantComparison(details->inputFileSize, fpSource, fpOutputDecompression) == 1) {
 				//print to log file
 				ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
 				return 1;

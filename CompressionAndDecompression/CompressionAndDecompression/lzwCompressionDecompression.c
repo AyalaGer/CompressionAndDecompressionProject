@@ -1,11 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
-#include "parsing.h"
-#include "detailsStruct.h"
-#include "calculation.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "filesHandling.h"
+#include "parsing.h"
+#include "detailsStruct.h"
+#include "calculation.h"
+
 extern struct Details* details;
 void lzwCompressionDecompression(char* filePath, char* mode) {
 	//params: the user arguments- file path and mode 

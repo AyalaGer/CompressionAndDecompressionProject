@@ -1,12 +1,13 @@
 #define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "compress.h"
 #include "decompress.h"
 #include "detailsStruct.h"
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "filesHandling.h"
 #define EX_LEN 4
+
 extern struct Details* details;
 
 char* subString(char* fileName)

@@ -2,21 +2,21 @@
 #define TABLE_SIZE 1<<16
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "sequence.h"
 #include "filesHandling.h"
 #include "detailsStruct.h"
 #include "binaryFile.h"
 #include "array.h"
+
 extern struct Details* details;
+
 void writeToTxtFile(FILE* fp, Sequence* str) {
 	for (int i = 0; i < str->count; i++)
 		putc((unsigned int)str->data[i], fp);
 }
+
 int decompression(FILE* fpIn, FILE* fpOut) {
-	time_t t = time(NULL);
-	struct tm* tm = localtime(&t);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process start at: %s.\n", asctime(tm));
+	fprintf(details->fpLogFile, "Decompression process start at: %s.\n", calcTime());
 	//prevCode- contains the previous code in the file.
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
@@ -62,9 +62,8 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//deleteTable(stringTable);
 	//deleteSequence(insertString);
 	//deleteSequence(outputStr);
-	t = time(NULL);
-	tm= localtime(&t);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));
+	
+	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", calcTime());
 	if (closeFile(fpIn) ) {
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
 		if (closeFile(fpOut)) {

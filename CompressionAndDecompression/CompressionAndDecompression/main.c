@@ -1,18 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS
-//#include "compare.h"
-//#include "compress.h"
-//#include "decompress.h"
-//#include "parsing.h"
-#include "lzwCompressionDecompression.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <malloc.h>
+#include "lzwCompressionDecompression.h"
 #include "detailsStruct.h"
+
 extern struct Details* details;
-
-
-
-
 
 void main(/*int argc, char* argv[]*/)
 {
@@ -24,6 +16,7 @@ void main(/*int argc, char* argv[]*/)
 	char* path = "C:\\Users\\WIN 10\\Desktop\\קבצי טקסט\\duplicate.txt";
 	//char* path = "C:\\Users\\WIN 10\\Desktop\\source (1).txt";
 	//char* path = "C:\\Users\\WIN 10\\Downloads\\source (1).lzw";
+	char* path = "C:\\אילה\\בוטקמפ\\ווסטרן דיגיטל בוטקמפ\\project\\קבצים לדוגמא לפרויקט\\ניסוי.txt";
 	char* mode = "compression";
 	lzwCompressionDecompression(path, mode);
 	/*if(argc>1)

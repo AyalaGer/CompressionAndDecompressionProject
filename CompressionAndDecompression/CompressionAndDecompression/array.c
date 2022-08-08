@@ -1,10 +1,12 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define TABLE_SIZE 1<<16
 #include <stdio.h>
 #include <stdlib.h>
 #include "detailsStruct.h"
 #include "sequence.h"
-#define TABLE_SIZE 1<<16
+
 extern struct Details* details;
+
 //init an array with 256 single charater strings
 void initArray(Sequence* stringTable[TABLE_SIZE]) {
 	for (unsigned int i = 0; i < 256; i++)
