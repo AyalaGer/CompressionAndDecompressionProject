@@ -23,7 +23,7 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	}
 	//save pointer to log file.
 	details->fpLogFile = fpLogFile;
-	ENABLE_DEBUG_LOG&& fprintf(fpLogFile, "start exexcute at: \n", asctime(tm));
+	ENABLE_DEBUG_LOG&& fprintf(fpLogFile, "[%s] Log started\n", calcTime());
 	//pass the arguments to parsing
 	//the function call compression or decompression 
 	if (parsing(filePath, mode)) {

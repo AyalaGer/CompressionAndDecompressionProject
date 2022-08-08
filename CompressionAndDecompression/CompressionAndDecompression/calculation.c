@@ -21,19 +21,19 @@ long runningTime()
 }
 void calculation(char* mode)
 {
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "calculation process has begun at: %s.",calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Calculation started.\n",calcTime());
 	if (!strcmp(mode, "compression")) {
 		double ratio = compressionRatio();
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression ratio is %f\n", ratio);
 		printf("The compression ratio is %f\n", ratio);
 		long time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the running time of %s is %ld", mode, time);
-		printf("The running time of %s is %ld",mode,time);
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %ld\n", mode, time);
+		printf("The running time of %s is %ld\n",mode,time);
 	}
 	else {
 		long time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the running time of %s is %ld", mode, time);
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %ld\n", mode, time);
 		printf("The running time of %s is %ld", mode, time);
 	}
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Calculation process complited successfully at: %s.", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Calculation process completed successfully.", calcTime());
 }
