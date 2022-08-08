@@ -1,5 +1,4 @@
 #pragma once
-#include <stdio.h>
 struct Details {
 	char* inputFilePath;
 	char* outputFilePath;

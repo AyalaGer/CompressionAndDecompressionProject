@@ -1,7 +1,8 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdlib.h>
-#include "sequence.h"
 #include <string.h>
 #include <stdio.h>
+#include "sequence.h"
 
 /*
  COURSE:        CS 360 Spring 2018
