@@ -11,70 +11,76 @@ extern struct Details* details;
 
 char* subString(char* fileName)
 {
-	printf("%s", fileName);
 	//Parameter: file name - path to the file
 	//The function cut the file path to name and extension.
+	// save the eextension,
 	//And return the name.
 	char chr, * nameWithoutExtension = (char*)malloc(sizeof(char) * strlen(fileName)- EX_LEN),
 		* extension = (char*)malloc(sizeof(char) * EX_LEN),
 		* tmp = (char*)malloc(sizeof(char) * strlen(fileName));
 	int cnt = 0;
-	printf("%d", sizeof(char) * strlen(fileName) - EX_LEN + 1);
 	strcpy(tmp, fileName);
-	printf("%s", tmp);
 	while (tmp &&(*tmp != '.')) {
 		cnt++;
 		tmp++;
 	}
 	tmp++;
 	strcpy(extension, tmp);
+	details->inputExtension = extension;
 	strncpy(nameWithoutExtension, fileName, cnt);
 	nameWithoutExtension[cnt] = '\0';
-	printf("%s", nameWithoutExtension);
-	printf("%s\n", extension);
-	printf("%s",nameWithoutExtension);
 	return nameWithoutExtension;
 }
 
 int parsing(char* sourceFilePath, char* mode)
 {
-	printf("%s\n", sourceFilePath);
 	//params: source file path and mode,
 	//the func parses the params and
 	//according them perform compression or decompression
 	int stat=0;
 	FILE* outputFile;
-	FILE* sourceFile = fopen(sourceFilePath, "r");
-	if (sourceFile == NULL) {
-		fprintf(details->fpLogFile, "unable to open the source file: %s.\n", sourceFilePath);
+	//open source file
+	FILE* sourceFile;
+	if (!openFile(sourceFilePath, &sourceFile, "r"))
 		return 0;
-	}
+	//save source file path
 	details->inputFilePath = sourceFilePath;
-	fprintf(details->fpLogFile, "Opening the source file: %s .\n", sourceFilePath);
 	details->inputFileSize = findSize(sourceFile);
-	fprintf(details->fpLogFile, "Size of the source file is %ld bytes \n", details->inputFileSize);
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Size of the source file is %ld bytes \n", details->inputFileSize);
 	char* outputFileName = subString(sourceFilePath);
+	//check the mode of operation
 	if (!strcmp(mode, "compression"))
 	{
-		strcat(outputFileName, ".lzw");
-		outputFile = fopen(outputFileName, "ab+");
-		if (outputFile == NULL) {
-			fprintf(details->fpLogFile, "Failed while opening the output file: %s.\n", outputFileName);
+		//check the extension 
+		if (strcmp(details->inputExtension, "txt")) {
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to compression");
+			return 0;
 		}
-		fprintf(details->fpLogFile, "Opening the output file: %s.\n", outputFileName);
+		//add extension '.lzw' to output file path
+		strcat(outputFileName, ".lzw");
+		//create and open output file
+		if (!openFile(outputFileName, &outputFile, "ab+"))
+			return 0;
+		//save the output file path
 		details->outputFilePath = outputFileName;
+		//call compression function
 		stat=compression(sourceFile, outputFile);
 	}
 	else if (!strcmp(mode, "decompression"))
 	{
+		//check the extension 
+		if (strcmp(details->inputExtension, "lzw")) {
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to decompression");
+			return 0;
+		}
+		//add extension '.txt' to output file path
 		strcat(outputFileName, ".txt");
 		//The extension from the global table.
-		outputFile = fopen(outputFileName, "a+");
-		if (outputFile == NULL) {
-			fprintf(details->fpLogFile, "Failed while opening the output file: %s.\n", outputFileName);
-		}
-		fprintf(details->fpLogFile, "Opening the output file: %s.\n", outputFileName);
+		if (!openFile(outputFileName, &outputFile, "a+"))
+			return 0;
+		//save the output file path
 		details->outputFilePath = outputFileName;
+		//call decompression function
 		stat=decompression(sourceFile, outputFile);
 	}
 	return stat;

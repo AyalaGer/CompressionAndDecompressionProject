@@ -32,14 +32,13 @@ Dict* initializeDict(unsigned int size) {
 int compression(FILE* fpSource, FILE* fpOutput) {
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
-	fprintf(details->fpLogFile, "The compression process starts at: %s.\n", asctime(tm));
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression process starts at: %s.\n", asctime(tm));
 	//store the next character/byte
 	unsigned int character;
 	//will be the output eventually
 	unsigned int code;
 	//initialize the table for 12 bits
 	unsigned int tableSize = 1 << 16;
-	printf("table size %d \n", tableSize);
 	Dict* dict = initializeDict(tableSize);
 	//keep track of table entries
 	int nextCode = 256;
@@ -54,7 +53,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 
 		//if sequence is in the dict
 		if (searchDict(dict, expandedStr, &code)) {
-			printf("found in first search: %s\n", expandedStr->data);
 			deleteSequence(str);
 			str = expandedStr;
 			puts(str->data);
@@ -63,10 +61,8 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 		else {
 			//searching without the next character
 			searchDict(dict, str, &code);
-			//printf("found str: %s\n", str->data);
 			//output 
 			// the code
-			//printf("code %d \n", code);
 			write16bits(fpOutput, code);
 			/*if (nextCode >= (1 << (bits)) && bits < maxBits) {
 				bits++;
@@ -93,12 +89,12 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	//comparison
 	t = time(NULL);
 	tm = localtime(&t);
-	fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", asctime(tm));
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", asctime(tm));
 	//close the files
 	if (closeFile(fpSource)) {
-		fprintf(details->fpLogFile, "The source file closed successfully\n");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The source file closed successfully\n");
 		if (closeFile(fpOutput)) {
-			fprintf(details->fpLogFile, "The compressed file closed successfully\n");
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
 			return wrapCompare();
 			
 			

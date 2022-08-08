@@ -39,16 +39,16 @@ int wrapDecompression(FILE* fpCompressed) {
 		//check if the decompression proccess completed successfuly. and print the status to the log file.
 		if (decompressionResult != 1) {
 			//print to log file
-			fprintf(details->fpLogFile, "decompression in the comparison process failed at: %s.", calcTime());
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "decompression in the comparison process failed at: %s.", calcTime());
 			return 0;
 		}
 		//print to log file
-		fprintf(details->fpLogFile, "decompression in the comparison process completed successfuly at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "decompression in the comparison process completed successfuly at:  %s.", calcTime());
 		return 1;
 	}
 	else {
 		//print to log file
-		fprintf(details->fpLogFile, "Unable to open the empty output decompression file at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the empty output decompression file at:  %s.", calcTime());
 		return 0;
 	}
 }
@@ -56,11 +56,11 @@ int wrapDecompression(FILE* fpCompressed) {
 int areFileSizesEquals(int sourceFileSize, int decompressedFileSize) {
 	if (sourceFileSize == decompressedFileSize) {
 		//print to log file
-		fprintf(details->fpLogFile, "the size files are equals!!! at: %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the size files are equals!!! at: %s.", calcTime());
 		return 1;
 	}
 	//print to log file
-	fprintf(details->fpLogFile, "the size files are not equals - the comparison proccess failed at:  %s.", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the size files are not equals - the comparison proccess failed at:  %s.", calcTime());
 	return 0;
 }
 
@@ -125,7 +125,7 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 		unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
 		if (kComparison(fpSouce, fpSourceKBuffer, fpDecompressedKBuffer, sizeFile) != 1) {
 			//print to log file
-			fprintf(details->fpLogFile, "the kComparison not successes! at: %s.", calcTime());
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the kComparison not successes! at: %s.", calcTime());
 			return 0;
 		}
 	}
@@ -133,11 +133,11 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 	//the file size is not correct.
 	else {
 		//print to log file
-		fprintf(details->fpLogFile, "the size files is not correct! at: %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the size files is not correct! at: %s.", calcTime());
 		return 0;
 	}
 	//print to log file
-	fprintf(details->fpLogFile, "comparison process complited successfully at:  %s.", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "comparison process complited successfully at:  %s.", calcTime());
 	return 1;
 }
 
@@ -148,7 +148,7 @@ int wrapCompare()
 	// to the source file.
 
 	//Print to the log file the comparison process has begun.
-	fprintf(details->fpLogFile, "comparison process has begun at:  %s.", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "comparison process has begun at:  %s.", calcTime());
 
 
 	//open files and prints the status to the log file.(?)
@@ -157,7 +157,7 @@ int wrapCompare()
 		int wrapDecompressionResult = wrapDecompression(fpCompressed);
 		//check if the decompression proccess failed.
 		if (wrapDecompressionResult == 0) {
-			fprintf(details->fpLogFile, "The shell decompression in the comparison process failed at:  %s.", calcTime());
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The shell decompression in the comparison process failed at:  %s.", calcTime());
 			//remove the decompressed file 
 			removeFile(pathOutputDecompression);
 			return 0;
@@ -173,27 +173,27 @@ int wrapCompare()
 			//continue only if the goToTheRelevantComparison successfuly
 			if (goToTheRelevantComparison(sourceFileSize, fpSource, fpOutputDecompression) == 1) {
 				//print to log file
-				fprintf(details->fpLogFile, "The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
+				ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
 				return 1;
 			}
 			//print to log file
-			fprintf(details->fpLogFile, "The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
 			return 0;
 		}
 		//print to log file
-		fprintf(details->fpLogFile, "The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  %s.", calcTime());
 		return 0;
 	}
 	else if (openFile(details->inputFilePath, fpSource, "r") == 1 && openFile(details->outputFilePath, fpCompressed, "a+") == 0) {
 		//print to log file
-		fprintf(details->fpLogFile, "Unable to open the compressed file at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the compressed file at:  %s.", calcTime());
 	}
 	else if (openFile(details->inputFilePath, fpSource, "r") == 0 && openFile(details->outputFilePath, fpCompressed, "a+") == 1) {
 		//print to log file
-		fprintf(details->fpLogFile, "Unable to open the source file at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the source file at:  %s.", calcTime());
 	}
 	else {
 		//print to log file
-		fprintf(details->fpLogFile, "Unable to open the compressed file and the source file at:  %s.", calcTime());
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the compressed file and the source file at:  %s.", calcTime());
 	}
 }

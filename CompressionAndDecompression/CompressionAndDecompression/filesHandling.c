@@ -14,21 +14,21 @@ int closeFile(FILE* fp) {
 int openFile(char* fPath, FILE** fp, char* mode) {
 	*fp = fopen(fPath, mode);
 	if (*fp == NULL) {
-		fprintf(details->fpLogFile, "Unable to open the file for %s", mode);
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the file for %s", mode);
 		return 0;
 	}
-	fprintf(details->fpLogFile, "File opened for %s successfully", mode);
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "File opened for %s successfully", mode);
 	return 1;
 }
 
 int removeFile(char* fPath) {
 	if (remove(fPath) == 0) {
-		fprintf(details->fpLogFile, "deleted file successfuly");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "deleted file successfuly");
 		return 1;
 	}
 	else
 	{
-		fprintf(details->fpLogFile, "deleted file does not success");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "deleted file does not success");
 		return 0;
 	}
 }

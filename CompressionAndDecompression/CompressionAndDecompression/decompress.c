@@ -16,7 +16,7 @@ void writeToTxtFile(FILE* fp, Sequence* str) {
 int decompression(FILE* fpIn, FILE* fpOut) {
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
-	fprintf(details->fpLogFile, "Decompression process start at: %s.\n", asctime(tm));
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process start at: %s.\n", asctime(tm));
 	//prevCode- contains the previous code in the file.
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
@@ -30,9 +30,10 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//read first code from the input file
 	prevCode = read16bits(fpIn);
 	if (prevCode == -1) 
-		fprintf(details->fpLogFile, "The compressed file is empty\n");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file is empty\n");
 	//write to output file the translation of the first code-stringTable[prevCode] .
 	writeToTxtFile(fpOut, stringTable[prevCode]);
+	firstChar = *(stringTable[prevCode]->data);
 	//while(there is still data to read) , nextcode=read code
 	while ((nextCode = read16bits(fpIn)) != -1) {
 		//if the code doesn't yet exist in the array.
@@ -63,11 +64,11 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//deleteSequence(outputStr);
 	t = time(NULL);
 	tm= localtime(&t);
-	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", asctime(tm));
 	if (closeFile(fpIn) ) {
-		fprintf(details->fpLogFile, "The compressed file closed successfully\n");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
 		if (closeFile(fpOut)) {
-			fprintf(details->fpLogFile, "The decompressed file closed successfully\n");
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The decompressed file closed successfully\n");
 			return 1;
 		}
 		return 0;

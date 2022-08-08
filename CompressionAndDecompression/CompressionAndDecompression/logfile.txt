@@ -1,26 +1,77 @@
-open log file
-start exexcute at: Fri Aug  5 17:05:21 2022
-
-Opening the source file: C:\Users\WIN 10\Desktop\source (1).txt .
-Size of the source file is 18260 bytes 
-Opening the output file: C:\Users\WIN 10\Desktop\source (1).lzw.
-The compression process starts at: Fri Aug  5 17:05:21 2022
+start exexcute at: 
+File opened for r successfullySize of the source file is 42 bytes 
+File opened for ab+ successfullyThe compression process starts at: Mon Aug  8 15:41:55 2022
 .
-Compression completed successfully at: Fri Aug  5 17:05:46 2022
+Compression completed successfully at: Mon Aug  8 15:41:55 2022
 .
 The source file closed successfully
 The compressed file closed successfully
-comparison process has begun at:  Fri Aug  5 17:05:46 2022
-.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Fri Aug  5 17:05:46 2022
+comparison process has begun at:  Mon Aug  8 15:41:56 2022
+.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Mon Aug  8 15:41:57 2022
 .
-Decompression process complited successfully at: Fri Aug  5 17:05:46 2022
+Decompression process complited successfully at: Mon Aug  8 15:41:58 2022
 .
 The compressed file closed successfully
 The decompressed file closed successfully
-decompression in the comparison process completed successfuly at:  Fri Aug  5 17:05:46 2022
-.File opened for r successfullythe size files are equals!!! at: Fri Aug  5 17:05:46 2022
-.comparison process complited successfully at:  Fri Aug  5 17:05:46 2022
-.The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  Fri Aug  5 17:05:46 2022
-.calculation process has begun at: Fri Aug  5 17:05:46 2022
-.calculation process complited successfully at: Fri Aug  5 17:05:46 2022
+decompression in the comparison process completed successfuly at:  Mon Aug  8 15:42:01 2022
+.File opened for r successfullythe size files are not equals - the comparison proccess failed at:  Mon Aug  8 15:42:03 2022
+.The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  Mon Aug  8 15:42:03 2022
+.start exexcute at: 
+File opened for r successfullySize of the source file is 42 bytes 
+File opened for ab+ successfullyThe compression process starts at: Mon Aug  8 15:43:48 2022
+.
+Compression completed successfully at: Mon Aug  8 15:43:48 2022
+.
+The source file closed successfully
+The compressed file closed successfully
+comparison process has begun at:  Mon Aug  8 15:43:48 2022
+.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Mon Aug  8 15:43:48 2022
+.
+Decompression process complited successfully at: Mon Aug  8 15:43:48 2022
+.
+The compressed file closed successfully
+The decompressed file closed successfully
+decompression in the comparison process completed successfuly at:  Mon Aug  8 15:43:48 2022
+.File opened for r successfullythe size files are not equals - the comparison proccess failed at:  Mon Aug  8 15:43:48 2022
+.The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  Mon Aug  8 15:43:48 2022
+.start exexcute at: 
+File opened for r successfullySize of the source file is 42 bytes 
+File opened for ab+ successfullyThe compression process starts at: Mon Aug  8 15:44:46 2022
+.
+Compression completed successfully at: Mon Aug  8 15:44:46 2022
+.
+The source file closed successfully
+The compressed file closed successfully
+comparison process has begun at:  Mon Aug  8 15:44:46 2022
+.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Mon Aug  8 15:44:46 2022
+.
+Decompression process complited successfully at: Mon Aug  8 15:44:46 2022
+.
+The compressed file closed successfully
+The decompressed file closed successfully
+decompression in the comparison process completed successfuly at:  Mon Aug  8 15:44:46 2022
+.File opened for r successfullythe size files are not equals - the comparison proccess failed at:  Mon Aug  8 15:44:46 2022
+.The comparison proccess does not successful on the edge way!!!!!!!!!!!!! at:  Mon Aug  8 15:44:46 2022
+.start exexcute at: 
+File opened for r successfullySize of the source file is 42 bytes 
+File opened for ab+ successfullyThe compression process starts at: Mon Aug  8 15:46:50 2022
+.
+Compression completed successfully at: Mon Aug  8 15:46:50 2022
+.
+The source file closed successfully
+The compressed file closed successfully
+comparison process has begun at:  Mon Aug  8 15:46:50 2022
+.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Mon Aug  8 15:46:50 2022
+.
+Decompression process complited successfully at: Mon Aug  8 15:46:50 2022
+.
+The compressed file closed successfully
+The decompressed file closed successfully
+decompression in the comparison process completed successfuly at:  Mon Aug  8 15:46:50 2022
+.File opened for r successfullythe size files are equals!!! at: Mon Aug  8 15:46:50 2022
+.comparison process complited successfully at:  Mon Aug  8 15:46:50 2022
+.The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  Mon Aug  8 15:46:50 2022
+.calculation process has begun at: Mon Aug  8 15:46:50 2022
+.The compression ratio is -20051201.000000
+the running time of compression is 0Calculation process complited successfully at: Mon Aug  8 15:46:50 2022
 .
