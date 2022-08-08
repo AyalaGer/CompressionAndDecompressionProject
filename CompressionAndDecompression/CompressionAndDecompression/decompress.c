@@ -16,7 +16,7 @@ void writeToTxtFile(FILE* fp, Sequence* str) {
 }
 
 int decompression(FILE* fpIn, FILE* fpOut) {
-	fprintf(details->fpLogFile, "Decompression process start at: %s.\n", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process start at: %s.\n", calcTime());
 	//prevCode- contains the previous code in the file.
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
@@ -63,7 +63,7 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//deleteSequence(insertString);
 	//deleteSequence(outputStr);
 	
-	fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Decompression process complited successfully at: %s.\n", calcTime());
 	if (closeFile(fpIn) ) {
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
 		if (closeFile(fpOut)) {
