@@ -47,14 +47,14 @@ int parsing(char* sourceFilePath, char* mode)
 	//save source file path
 	details->inputFilePath = sourceFilePath;
 	details->inputFileSize = findSize(sourceFile);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Size of the source file is %ld bytes \n", details->inputFileSize);
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The size of the source file is %ld bytes \n", details->inputFileSize);
 	char* outputFileName = subString(sourceFilePath);
 	//check the mode of operation
 	if (!strcmp(mode, "compression"))
 	{
 		//check the extension 
 		if (strcmp(details->inputExtension, "txt")) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to compression");
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to compression\n");
 			return 0;
 		}
 		//add extension '.lzw' to output file path
@@ -71,7 +71,7 @@ int parsing(char* sourceFilePath, char* mode)
 	{
 		//check the extension 
 		if (strcmp(details->inputExtension, "lzw")) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to decompression");
+			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to decompression\n");
 			return 0;
 		}
 		//add extension '.txt' to output file path

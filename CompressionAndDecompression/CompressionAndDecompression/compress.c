@@ -29,7 +29,7 @@ Dict* initializeDict(unsigned int size) {
 
 
 int compression(FILE* fpSource, FILE* fpOutput) {
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression process starts at: %s.\n", calcTime());
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Compression started.\n", calcTime());
 	//store the next character/byte
 	unsigned int character;
 	//will be the output eventually
@@ -81,8 +81,8 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 
 	//decompression
 	//comparison
-	details->outputFileSize = findSize(fpOutput);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", calcTime());
+
+	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Compression completed successfully.\n", calcTime());
 	//close the files
 	if (closeFile(fpSource)) {
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The source file closed successfully\n");

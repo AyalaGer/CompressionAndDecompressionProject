@@ -13,5 +13,7 @@ struct Details* allocateDetails() {
 char* calcTime() {
 	time_t t = time(NULL);
 	struct tm* tm = localtime(&t);
-	return asctime(tm);
+	char* date = asctime(localtime(&t));
+	date[strlen(date) - 1] = '\0';
+	return date;
 }
