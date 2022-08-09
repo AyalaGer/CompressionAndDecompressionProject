@@ -9,7 +9,7 @@ extern struct Details* details;
 
 double compressionRatio()
 {
-	return details->outputFileSize / details->inputFileSize;
+	return (double)details->outputFileSize / (double)details->inputFileSize;
 }
 
 long runningTime()

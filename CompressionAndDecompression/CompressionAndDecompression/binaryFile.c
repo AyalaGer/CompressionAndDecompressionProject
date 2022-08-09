@@ -1,5 +1,16 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+void write16bitsToBuffer(char buffer[], int ind, int code) {
+    int right = 0xFF;
+    int left = 0xFF00;
+    int bits = (left & code);
+    bits = bits >> 8;
+    buffer[ind] = bits;
+    bits = right & code;
+    buffer[ind + 1] = bits;  
+}
+
+
 void write16bits(FILE* output, int code) {
     int right = 0xFF;
     int left = 0xFF00;

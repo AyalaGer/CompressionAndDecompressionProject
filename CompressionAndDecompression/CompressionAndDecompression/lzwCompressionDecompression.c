@@ -27,7 +27,7 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	//pass the arguments to parsing
 	//the function call compression or decompression 
 	if (parsing(filePath, mode)) {
-		printf("The file is: %s", details->outputFilePath);
+		printf("The file is: %s\n", details->outputFilePath);
 		//calculate the compression ratio and the running time
 		calculation(mode);
 	}
