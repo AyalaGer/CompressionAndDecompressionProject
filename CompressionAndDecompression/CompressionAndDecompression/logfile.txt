@@ -1,0 +1,24 @@
+start exexcute at: Tue Aug  9 09:16:39 2022
+
+File opened for r successfullySize of the source file is 9878186 bytes 
+File opened for ab+ successfullyThe compression process starts at: Tue Aug  9 09:16:39 2022
+.
+Compression completed successfully at: Tue Aug  9 09:17:00 2022
+.
+The source file closed successfully
+The compressed file closed successfully
+comparison process has begun at:  Tue Aug  9 09:17:00 2022
+.File opened for r successfullyFile opened for rb successfullyFile opened for a+ successfullyDecompression process start at: Tue Aug  9 09:17:00 2022
+.
+Decompression process complited successfully at: Tue Aug  9 09:17:01 2022
+.
+The compressed file closed successfully
+The decompressed file closed successfully
+decompression in the comparison process completed successfuly at:  Tue Aug  9 09:17:01 2022
+.File opened for r successfullythe size files are equals!!! at: Tue Aug  9 09:17:01 2022
+.comparison process complited successfully at:  Tue Aug  9 09:17:01 2022
+.The comparison proccess successful on the edge way!!!!!!!!!!!!! at:  Tue Aug  9 09:17:01 2022
+.calculation process has begun at: Tue Aug  9 09:17:01 2022
+.The compression ratio is 0.038514
+the running time of compression is 22Calculation process complited successfully at: Tue Aug  9 09:17:01 2022
+.

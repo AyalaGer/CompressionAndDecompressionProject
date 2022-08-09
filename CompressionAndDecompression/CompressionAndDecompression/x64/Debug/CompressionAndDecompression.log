@@ -1,7 +1,2 @@
-﻿  compress.c
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(68,17): warning C4018: '<': signed/unsigned mismatch
-  parsing.c
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\parsing.c(19,7): warning C4101: 'chr': unreferenced local variable
-  Generating Code...
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(100): warning C4715: 'compression': not all control paths return a value
+﻿  main.c
   CompressionAndDecompression.vcxproj -> C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe

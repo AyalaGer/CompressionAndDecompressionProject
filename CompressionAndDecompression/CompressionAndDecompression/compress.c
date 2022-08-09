@@ -46,13 +46,10 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	while (character != EOF) {
 		character = getc(fpSource);
 		Sequence* expandedStr = copySequenceAppend(str, character);
-		puts(expandedStr->data);
-
 		//if sequence is in the dict
 		if (searchDict(dict, expandedStr, &code)) {
 			deleteSequence(str);
 			str = expandedStr;
-			puts(str->data);
 		}
 		//sequence is not in dict
 		else {
@@ -84,7 +81,7 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 
 	//decompression
 	//comparison
-
+	details->outputFileSize = findSize(fpOutput);
 	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", calcTime());
 	//close the files
 	if (closeFile(fpSource)) {
