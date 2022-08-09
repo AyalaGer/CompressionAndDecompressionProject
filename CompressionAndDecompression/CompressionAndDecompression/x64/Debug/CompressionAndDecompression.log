@@ -1,16 +1,10 @@
-﻿  calculation.c
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\calculation.c(19,22): warning C4244: 'return': conversion from 'time_t' to 'long', possible loss of data
-  compare.c
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(95,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(97,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(188,52): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(188,44): warning C4024: 'openFile': different types for formal and actual parameter 2
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(188,113): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(188,101): warning C4024: 'openFile': different types for formal and actual parameter 2
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(192,52): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(192,44): warning C4024: 'openFile': different types for formal and actual parameter 2
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(192,113): warning C4047: 'function': 'FILE **' differs in levels of indirection from 'FILE *'
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(192,101): warning C4024: 'openFile': different types for formal and actual parameter 2
+﻿  binaryFile.c
+  compress.c
+C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(62,16): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(100,17): warning C4018: '<': signed/unsigned mismatch
+C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(48,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  decompress.c
+  main.c
   Generating Code...
-C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\CompressionAndDecompression\compare.c(200): warning C4715: 'wrapCompare': not all control paths return a value
-  CompressionAndDecompression.vcxproj -> C:\Users\Efrat\Desktop\LastClone\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
+C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(135): warning C4715: 'compression': not all control paths return a value
+  CompressionAndDecompression.vcxproj -> C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
