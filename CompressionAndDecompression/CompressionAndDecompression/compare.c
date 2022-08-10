@@ -82,7 +82,7 @@ int areFileSizesEquals() {
 //}
 
 
-int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[], unsigned char fpDecompressedKBuffer[], int fileSize) {
+int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[K_BUFFER_SIZE], unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE], int fileSize) {
 	//Define the variables for the result from the fread function.
 	int countInSurceFile;
 	int countInDecompressedFile;
@@ -98,7 +98,7 @@ int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[], unsigned char f
 		//Calculate how many rest in the last buffer.
 		amountCompare = countInSurceFile ? K_BUFFER_SIZE : (fileSize % K_BUFFER_SIZE);
 		//Comparison if are the chunks the same.
-		if (strncmp(fpSourceKBuffer, fpDecompressedKBuffer, amountCompare) != 0) {
+		if (strncmp((const char*)fpSourceKBuffer, (const char*)fpDecompressedKBuffer, amountCompare) != 0) {
 			//Close the decompressed file before the remove. (?) ask if success
 			closeFile(fpOutputDecompression);
 			//Remove the decompressed file.
@@ -185,11 +185,11 @@ int wrapCompare()
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Comparison failed\n", calcTime());
 		return 0;
 	}
-	else if (openFile(details->inputFilePath, fpSource, "r") == 1 && openFile(details->outputFilePath, fpCompressed, "a+") == 0) {
+	else if (openFile(details->inputFilePath, &fpSource, "r") == 1 && openFile(details->outputFilePath, &fpCompressed, "a+") == 0) {
 		//print to log file
 		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the compressed file at:  %s.", calcTime());
 	}
-	else if (openFile(details->inputFilePath, fpSource, "r") == 0 && openFile(details->outputFilePath, fpCompressed, "a+") == 1) {
+	else if (openFile(details->inputFilePath, &fpSource, "r") == 0 && openFile(details->outputFilePath, &fpCompressed, "a+") == 1) {
 		//print to log file
 		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the source file at:  %s.", calcTime());
 	}

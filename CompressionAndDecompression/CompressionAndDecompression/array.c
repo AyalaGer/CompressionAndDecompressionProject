@@ -17,12 +17,12 @@ void initArray(Sequence* stringTable[TABLE_SIZE]) {
 }
 
 int addarray(char** stringTable, int* lastCodeInTable, char firstChar, int prevCode) {
-	char* insertString = malloc(sizeof(char));
+	char* insertString = (char*)malloc(sizeof(char));
 	strcpy(insertString, stringTable[prevCode]);
 	strncat(insertString, &firstChar, 1);
 	stringTable = (char**)realloc(stringTable, sizeof(char*) * (*lastCodeInTable + 2));
 	if (stringTable != NULL) {
-		stringTable[++(*lastCodeInTable)] = malloc(sizeof(char));
+		stringTable[++(*lastCodeInTable)] =(char*) malloc(sizeof(char));
 		strcpy(stringTable[*lastCodeInTable], insertString);
 		free(insertString);
 		return 1;

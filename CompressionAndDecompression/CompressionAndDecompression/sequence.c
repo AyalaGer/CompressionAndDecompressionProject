@@ -13,7 +13,7 @@
 Sequence* newSequence(unsigned char firstByte) {
 	Sequence* newSequence = (Sequence*)malloc(sizeof(Sequence));
 	newSequence->count = 1;
-	newSequence->data = malloc(newSequence->count);
+	newSequence->data = (unsigned char*)malloc(newSequence->count);
 	newSequence->data[0] = firstByte;
 
 	return newSequence;
@@ -32,7 +32,7 @@ Sequence* copySequenceAppend(Sequence* sequence, unsigned char addByte) {
 	appSequence->count = count + 1;
 
 	free(appSequence->data);
-	appSequence->data = malloc(count + 1);
+	appSequence->data = (unsigned char*)malloc(count + 1);
 
 	for (int i = 0; i < count; i++) {
 		appSequence->data[i] = sequence->data[i];

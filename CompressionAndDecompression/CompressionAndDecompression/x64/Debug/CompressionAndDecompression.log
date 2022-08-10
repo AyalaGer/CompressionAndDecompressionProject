@@ -1,10 +1,3 @@
-﻿  binaryFile.c
-  compress.c
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(62,16): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(100,17): warning C4018: '<': signed/unsigned mismatch
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(48,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  decompress.c
-  main.c
-  Generating Code...
-C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\compress.c(135): warning C4715: 'compression': not all control paths return a value
-  CompressionAndDecompression.vcxproj -> C:\Users\WIN 10\Documents\תכנות\bootcamp\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
+﻿  parsing.c
+C:\Users\מירי\Desktop\CompressionAndDecompression\CompressionAndDecompression\CompressionAndDecompression\parsing.c(44,7): warning C4101: 'chr': unreferenced local variable
+  CompressionAndDecompression.vcxproj -> C:\Users\מירי\Desktop\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe

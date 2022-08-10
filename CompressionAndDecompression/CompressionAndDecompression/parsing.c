@@ -7,8 +7,33 @@
 #include "detailsStruct.h"
 #include "filesHandling.h"
 #define EX_LEN 4
-
 extern struct Details* details;
+
+
+int checkIfFileExists(char* path) {
+	FILE* fp;
+	if (openFile(path, &fp, "r")) {
+		closeFile(fp);
+		return 1;
+	}	
+	return 0;
+
+}
+
+char* checkAndChangeOutputPath(char* outputFile, char* ex) {
+	
+	if (checkIfFileExists(outputFile)) {
+		char* changedPath = (char*)malloc(strlen(outputFile) + 5);
+		strncpy(changedPath, outputFile, strlen(outputFile) - EX_LEN);
+		changedPath[strlen(outputFile) - EX_LEN] = '\0';
+		strcat(changedPath, "-copy");
+		strcat(changedPath, ex);
+		return changedPath;
+	}
+	else
+		return outputFile;
+}
+
 
 char* subString(char* fileName)
 {
@@ -47,6 +72,11 @@ int parsing(char* sourceFilePath, char* mode)
 	//save source file path
 	details->inputFilePath = sourceFilePath;
 	details->inputFileSize = findSize(sourceFile);
+	if (details->inputFileSize > 100 * 1024 * 1024) {
+		printf("Error: This file size is too large.\n The maximum supprted file size is 100MB\n");
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The size of the source file is %ld bytes, too large than supported.\n", details->inputFileSize);
+		return 0;
+	}
 	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The size of the source file is %ld bytes \n", details->inputFileSize);
 	char* outputFileName = subString(sourceFilePath);
 	//check the mode of operation
