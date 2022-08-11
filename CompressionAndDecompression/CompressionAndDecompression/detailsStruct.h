@@ -1,13 +1,14 @@
 #pragma once
 #define ENABLE_DEBUG_LOG 0
 #include <stdio.h>
+#include <time.h>
 struct Details {
 	char* inputFilePath;
 	char* outputFilePath;
 	char* inputExtension;
 	int outputFileSize;
 	int inputFileSize;
-	int startTime;
+	clock_t startTime;
 	FILE* fpLogFile;
 };
 struct Details* details;

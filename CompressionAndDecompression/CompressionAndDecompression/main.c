@@ -10,7 +10,8 @@ void main(/*int argc, char* argv[]*/)
 {
 	
 	details = allocateDetails();
-	char* path = "C:\\Users\\WIN 10\\Desktop\\תנך\\חלק תנך.txt";
+	char* path = "C:\\Users\\מירי\\Downloads\\source (1).txt";
+	//char* path = "C:\\Users\\WIN 10\\Desktop\\תנך\\חלק תנך.txt";
 	//char* path = "C:\\Users\\WIN 10\\Desktop\\קבצי טקסט\\souce1.txt";
 	//char* path = "C:\\Users\\WIN 10\\Desktop\\filePath2.bin";
 	//char* path = "C:\\Users\\WIN 10\\Desktop\\short.txt";

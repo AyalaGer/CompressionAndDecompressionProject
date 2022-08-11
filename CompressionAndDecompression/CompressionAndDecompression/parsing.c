@@ -89,11 +89,11 @@ int parsing(char* sourceFilePath, char* mode)
 		}
 		//add extension '.lzw' to output file path
 		strcat(outputFileName, ".lzw");
+		//check if path exist and rename and save the name
+		details->outputFilePath = checkAndChangeOutputPath(outputFileName, ".lzw");
 		//create and open output file
 		if (!openFile(outputFileName, &outputFile, "ab+"))
 			return 0;
-		//save the output file path
-		details->outputFilePath = outputFileName;
 		//call compression function
 		stat=compression(sourceFile, outputFile);
 	}
@@ -106,11 +106,10 @@ int parsing(char* sourceFilePath, char* mode)
 		}
 		//add extension '.txt' to output file path
 		strcat(outputFileName, ".txt");
-		//The extension from the global table.
+		//check if path exist and rename and save the name
+		details->outputFilePath = checkAndChangeOutputPath(outputFileName, ".txt");
 		if (!openFile(outputFileName, &outputFile, "a+"))
 			return 0;
-		//save the output file path
-		details->outputFilePath = outputFileName;
 		//call decompression function
 		stat=decompression(sourceFile, outputFile);
 	}

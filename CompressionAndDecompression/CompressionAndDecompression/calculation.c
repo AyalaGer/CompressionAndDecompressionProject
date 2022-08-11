@@ -12,11 +12,12 @@ double compressionRatio()
 	return (double)details->outputFileSize / (double)details->inputFileSize;
 }
 
-long runningTime()
+double runningTime()
 {
+	clock_t curTime = clock();
 	time_t current_time;
 	time(&current_time);
-	return current_time - details->startTime;
+	return  (double)(curTime - details->startTime) / CLOCKS_PER_SEC;;
 
 }
 void calculation(char* mode)
@@ -26,14 +27,14 @@ void calculation(char* mode)
 		double ratio = compressionRatio();
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression ratio is %f\n", ratio);
 		printf("The compression ratio is %f\n", ratio);
-		long time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %ld\n", mode, time);
-		printf("The running time of %s is %ld\n",mode,time);
+		double time = runningTime();
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %f\n", mode, time);
+		printf("The running time of %s is %f\n",mode,time);
 	}
 	else {
-		long time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %ld\n", mode, time);
-		printf("The running time of %s is %ld", mode, time);
+		double time = runningTime();
+		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %f\n", mode, time);
+		printf("The running time of %s is %f", mode, time);
 	}
 	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Calculation process completed successfully.", calcTime());
 }

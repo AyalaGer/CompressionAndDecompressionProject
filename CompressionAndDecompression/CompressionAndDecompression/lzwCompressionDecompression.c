@@ -11,11 +11,8 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	//params: the user arguments- file path and mode 
 	//the function  is shell func which execute the program.
 	//save the time and print it to logging file
-	time_t seconds;
-	time(&seconds);
-	struct tm* tm = localtime(&seconds);
 	//save the start time. 
-	details->startTime = seconds;
+	details->startTime = clock();
 	//open a log file.
 	FILE* fpLogFile = fopen("logfile.txt", "a+");
 	if (fpLogFile == NULL) {

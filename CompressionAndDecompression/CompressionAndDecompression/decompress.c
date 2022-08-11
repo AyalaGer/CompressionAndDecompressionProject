@@ -29,8 +29,10 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	initArray(stringTable);
 	//read first code from the input file
 	prevCode = read16bits(fpIn);
-	if (prevCode == -1) 
+	if (prevCode == -1) {
 		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file is empty\n");
+		return 0;
+	}		
 	//write to output file the translation of the first code-stringTable[prevCode] .
 	writeToTxtFile(fpOut, stringTable[prevCode]);
 	firstChar = *(stringTable[prevCode]->data);
