@@ -5,7 +5,7 @@
 #include "parsing.h"
 #include "detailsStruct.h"
 #include "calculation.h"
-
+#include "log.h"
 extern struct Details* details;
 void lzwCompressionDecompression(char* filePath, char* mode) {
 	//params: the user arguments- file path and mode 
@@ -14,13 +14,7 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 	//save the start time. 
 	details->startTime = clock();
 	//open a log file.
-	FILE* fpLogFile = fopen("logfile.txt", "a+");
-	if (fpLogFile == NULL) {
-		return;
-	}
-	//save pointer to log file.
-	details->fpLogFile = fpLogFile;
-	ENABLE_DEBUG_LOG&& fprintf(fpLogFile, "[%s] Log started\n", calcTime());
+	CREATE_LOG_FILE
 	//pass the arguments to parsing
 	//the function call compression or decompression 
 	if (parsing(filePath, mode)) {
@@ -28,6 +22,5 @@ void lzwCompressionDecompression(char* filePath, char* mode) {
 		//calculate the compression ratio and the running time
 		calculation(mode);
 	}
-
-	fclose(details->fpLogFile);
+	CLOSE_LOG
 }

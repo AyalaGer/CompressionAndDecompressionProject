@@ -4,7 +4,7 @@
 #include <time.h>
 #include <string.h>
 #include "detailsStruct.h"
-
+#include "log.h"
 extern struct Details* details;
 
 double compressionRatio()
@@ -22,19 +22,19 @@ double runningTime()
 }
 void calculation(char* mode)
 {
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Calculation started.\n",calcTime());
+	LOG_INFO(__func__,"Calculation started")
 	if (!strcmp(mode, "compression")) {
 		double ratio = compressionRatio();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression ratio is %f\n", ratio);
+		LOG_INFO(__func__, "Print the compression ratio to the user")
 		printf("The compression ratio is %f\n", ratio);
 		double time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %f\n", mode, time);
+		LOG_INFO(__func__,"Print the running time")
 		printf("The running time of %s is %f\n",mode,time);
 	}
 	else {
 		double time = runningTime();
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The running time of %s is %f\n", mode, time);
+		LOG_INFO(__func__, "Print the running time")
 		printf("The running time of %s is %f", mode, time);
 	}
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Calculation process completed successfully.", calcTime());
+	LOG_INFO(__func__, " Calculation process completed successfully")
 }

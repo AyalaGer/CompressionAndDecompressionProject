@@ -1,2 +1,8 @@
-﻿  calculation.c
-  CompressionAndDecompression.vcxproj -> D:\CompressionAndDecompression\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe
+﻿  parsing.c
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(35,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(36,36): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(25,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(26,39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(49,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(50,7): warning C4101: 'chr': unreferenced local variable
+  CompressionAndDecompression.vcxproj -> D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe

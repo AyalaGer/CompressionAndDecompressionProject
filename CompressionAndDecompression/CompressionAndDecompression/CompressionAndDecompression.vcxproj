@@ -135,6 +135,7 @@
     <ClInclude Include="decompress.h" />
     <ClInclude Include="detailsStruct.h" />
     <ClInclude Include="dictionary.h" />
+    <ClInclude Include="log.h" />
     <ClInclude Include="lzwCompressionDecompression.h" />
     <ClInclude Include="parsing.h" />
     <ClInclude Include="sequence.h" />

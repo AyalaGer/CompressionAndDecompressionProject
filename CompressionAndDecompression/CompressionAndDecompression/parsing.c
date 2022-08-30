@@ -6,6 +6,7 @@
 #include "decompress.h"
 #include "detailsStruct.h"
 #include "filesHandling.h"
+#include "log.h"
 #define EX_LEN 4
 extern struct Details* details;
 
@@ -21,17 +22,20 @@ int checkIfFileExists(char* path) {
 }
 
 char* checkAndChangeOutputPath(char* outputFile, char* ex) {
-	
-	if (checkIfFileExists(outputFile)) {
-		char* changedPath = (char*)malloc(strlen(outputFile) + 5);
-		strncpy(changedPath, outputFile, strlen(outputFile) - EX_LEN);
-		changedPath[strlen(outputFile) - EX_LEN] = '\0';
+	int sizePath = strlen(outputFile) + 5;
+	int lenNamePath = strlen(outputFile) - 4;
+	char* changedPath=(char*)malloc(strlen(outputFile));
+	strcpy(changedPath, outputFile);
+	while (checkIfFileExists(changedPath)) {
+		changedPath = (char*)malloc(sizePath);
+		strncpy(changedPath, outputFile, lenNamePath);
+		changedPath[lenNamePath] = '\0';
 		strcat(changedPath, "-copy");
 		strcat(changedPath, ex);
-		return changedPath;
+		sizePath= strlen(changedPath) + 5;
+		lenNamePath= strlen(changedPath) - 4;
 	}
-	else
-		return outputFile;
+		return changedPath;
 }
 
 
@@ -41,20 +45,18 @@ char* subString(char* fileName)
 	//The function cut the file path to name and extension.
 	// save the eextension,
 	//And return the name.
-	char chr, * nameWithoutExtension = (char*)malloc(sizeof(char) * strlen(fileName)- EX_LEN),
-		* extension = (char*)malloc(sizeof(char) * EX_LEN),
+	int exLen = 4;
+	int lenOfNamePath = strlen(fileName);
+	char chr, * nameWithoutExtension = (char*)malloc(sizeof(char) * lenOfNamePath),
 		* tmp = (char*)malloc(sizeof(char) * strlen(fileName));
 	int cnt = 0;
 	strcpy(tmp, fileName);
-	while (tmp &&(*tmp != '.')) {
-		cnt++;
-		tmp++;
-	}
+	tmp = strchr(tmp, '.');
 	tmp++;
-	strcpy(extension, tmp);
-	details->inputExtension = extension;
-	strncpy(nameWithoutExtension, fileName, cnt);
-	nameWithoutExtension[cnt] = '\0';
+	details->inputExtension = (char*)malloc(sizeof(char) * exLen);
+	strcpy(details->inputExtension, tmp);
+	strncpy(nameWithoutExtension, fileName, lenOfNamePath - exLen);
+	nameWithoutExtension[lenOfNamePath - exLen] = '\0';
 	return nameWithoutExtension;
 }
 
@@ -64,6 +66,7 @@ int parsing(char* sourceFilePath, char* mode)
 	//the func parses the params and
 	//according them perform compression or decompression
 	int stat=0;
+	int maxFileSize = 100 * 1024 * 1024;
 	FILE* outputFile;
 	//open source file
 	FILE* sourceFile;
@@ -72,19 +75,19 @@ int parsing(char* sourceFilePath, char* mode)
 	//save source file path
 	details->inputFilePath = sourceFilePath;
 	details->inputFileSize = findSize(sourceFile);
-	if (details->inputFileSize > 100 * 1024 * 1024) {
+	if (details->inputFileSize > maxFileSize) {
 		printf("Error: This file size is too large.\n The maximum supprted file size is 100MB\n");
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The size of the source file is %ld bytes, too large than supported.\n", details->inputFileSize);
+		LOG_INFO(__func__,"The size of the source file is too large than supported.")
 		return 0;
 	}
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The size of the source file is %ld bytes \n", details->inputFileSize);
+	LOG_INFO(__func__, "The size of the source file is valid")
 	char* outputFileName = subString(sourceFilePath);
 	//check the mode of operation
 	if (!strcmp(mode, "compression"))
 	{
 		//check the extension 
 		if (strcmp(details->inputExtension, "txt")) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to compression\n");
+			LOG_INFO(__func__,"the extension doesn't match to compression")
 			return 0;
 		}
 		//add extension '.lzw' to output file path
@@ -92,7 +95,7 @@ int parsing(char* sourceFilePath, char* mode)
 		//check if path exist and rename and save the name
 		details->outputFilePath = checkAndChangeOutputPath(outputFileName, ".lzw");
 		//create and open output file
-		if (!openFile(outputFileName, &outputFile, "ab+"))
+		if (!openFile(details->outputFilePath, &outputFile, "ab+"))
 			return 0;
 		//call compression function
 		stat=compression(sourceFile, outputFile);
@@ -101,14 +104,14 @@ int parsing(char* sourceFilePath, char* mode)
 	{
 		//check the extension 
 		if (strcmp(details->inputExtension, "lzw")) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the extension doesn't match to decompression\n");
+			LOG_INFO(__func__,"the extension doesn't match to decompression")
 			return 0;
 		}
 		//add extension '.txt' to output file path
 		strcat(outputFileName, ".txt");
 		//check if path exist and rename and save the name
 		details->outputFilePath = checkAndChangeOutputPath(outputFileName, ".txt");
-		if (!openFile(outputFileName, &outputFile, "a+"))
+		if (!openFile(details->outputFilePath, &outputFile, "a+"))
 			return 0;
 		//call decompression function
 		stat=decompression(sourceFile, outputFile);

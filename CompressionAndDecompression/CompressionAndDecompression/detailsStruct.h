@@ -1,7 +1,8 @@
 #pragma once
-#define ENABLE_DEBUG_LOG 0
 #include <stdio.h>
 #include <time.h>
+#define SUCCESS 1
+#define FAILURE 0
 struct Details {
 	char* inputFilePath;
 	char* outputFilePath;

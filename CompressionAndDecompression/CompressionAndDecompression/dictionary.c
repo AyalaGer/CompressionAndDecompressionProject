@@ -4,18 +4,6 @@
 #include "dictionary.h"
 
 
-/*
- COURSE:        CS 360 Spring 2018
- ASSIGNMENT:    1
- AUTHOR:        Austin Horjus
- */
-
- // Bernstein, for hash function
-
- ///////////////////////////////////////////////////////////////////////////
- //////							Linked List							 //////
- ///////////////////////////////////////////////////////////////////////////
-
 Entry* newEntry(Sequence* sequence, int code) {
 
 	Entry* newEntry = (Entry*)malloc(sizeof(Entry));

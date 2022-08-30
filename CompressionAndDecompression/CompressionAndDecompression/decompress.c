@@ -7,7 +7,7 @@
 #include "detailsStruct.h"
 #include "binaryFile.h"
 #include "array.h"
-
+#include "log.h"
 extern struct Details* details;
 
 void writeToTxtFile(FILE* fp, Sequence* str) {
@@ -16,7 +16,7 @@ void writeToTxtFile(FILE* fp, Sequence* str) {
 }
 
 int decompression(FILE* fpIn, FILE* fpOut) {
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Decompression started.\n", calcTime());
+	LOG_INFO(__func__,"Decompression started")
 	//prevCode- contains the previous code in the file.
 	//nextCode- read the file code by code.
 	//outputStr- translation of the codes, the output to the decompressed file.
@@ -30,7 +30,7 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//read first code from the input file
 	prevCode = read16bits(fpIn);
 	if (prevCode == -1) {
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file is empty\n");
+		LOG_INFO(__func__,"The compressed file is empty")
 		return 0;
 	}		
 	//write to output file the translation of the first code-stringTable[prevCode] .
@@ -64,12 +64,11 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//deleteTable(stringTable);
 	//deleteSequence(insertString);
 	//deleteSequence(outputStr);
-	
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "[%s] Decompression completed successfully.\n", calcTime());
+	LOG_INFO(__func__,"Decompression completed successfully")
 	if (closeFile(fpIn) ) {
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
+		LOG_INFO(__func__,"The compressed file closed successfully")
 		if (closeFile(fpOut)) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The decompressed file closed successfully\n");
+			LOG_INFO(__func__,"The decompressed file closed successfully")
 			return 1;
 		}
 		return 0;

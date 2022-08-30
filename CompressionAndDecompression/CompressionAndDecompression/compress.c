@@ -7,6 +7,7 @@
 #include "filesHandling.h"
 #include "detailsStruct.h"
 #include "compare.h"
+#include "log.h"
 extern struct Details* details;
 
 Sequence* replaceAppendSequence(Sequence* s, unsigned char c) {
@@ -30,7 +31,7 @@ Dict* initializeDict(unsigned int size) {
 
 
 int compression(FILE* fpSource, FILE* fpOutput) {
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compression process starts at: %s.\n", calcTime());
+	LOG_INFO(__func__,"The compression process starts")
 	//store the next character/byte
 	unsigned int character;
 	//will be the output eventually
@@ -120,12 +121,12 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	//decompression
 	//comparison
 	details->outputFileSize = findSize(fpOutput);
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Compression completed successfully at: %s.\n", calcTime());
+	LOG_INFO(__func__,"Compression completed successfully")
 	//close the files
 	if (closeFile(fpSource)) {
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The source file closed successfully\n");
+		LOG_INFO(__func__,"The source file closed successfully")
 		if (closeFile(fpOutput)) {
-			ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The compressed file closed successfully\n");
+			LOG_INFO(__func__,"The compressed file closed successfully")
 			return wrapCompare();
 
 

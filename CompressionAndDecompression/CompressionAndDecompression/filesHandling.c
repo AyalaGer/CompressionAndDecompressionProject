@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "detailsStruct.h"
-
+#include "log.h"
 extern struct Details* details;
 
 int closeFile(FILE* fp) {
@@ -16,21 +16,21 @@ int closeFile(FILE* fp) {
 int openFile(char* fPath, FILE** fp, char* mode) {
 	*fp = fopen(fPath, mode);
 	if (*fp == NULL) {
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the file for %s\n", mode);
+		LOG_INFO(__func__,"Unable to open the file")
 		return 0;
 	}
-	ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "File opened for %s successfully\n", mode);
+	LOG_INFO(__func__,"File opened successfully")
 	return 1;
 }
 
 int removeFile(char* fPath) {
 	if (remove(fPath) == 0) {
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "deleted file successfuly\n");
+		LOG_INFO(__func__,"Deleted file successfuly")
 		return 1;
 	}
 	else
 	{
-		ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "The file cannot be deleted\n");
+		LOG_INFO(__func__,"The file cannot be deleted")
 		return 0;
 	}
 }
