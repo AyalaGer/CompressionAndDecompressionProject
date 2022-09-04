@@ -1,8 +1,21 @@
-﻿  parsing.c
-D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(35,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(36,36): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+﻿  calculation.c
+  compare.c
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compare.c(72,27): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compare.c(74,34): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+  compress.c
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compress.c(62,16): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compress.c(96,17): warning C4018: '<': signed/unsigned mismatch
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compress.c(49,17): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  decompress.c
+  filesHandling.c
+  lzwCompressionDecompression.c
+  parsing.c
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(46,33): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(47,36): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(25,36): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(26,39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(49,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(50,7): warning C4101: 'chr': unreferenced local variable
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(27,39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(60,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\parsing.c(61,7): warning C4101: 'chr': unreferenced local variable
+  Generating Code...
+D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\CompressionAndDecompression\compress.c(129): warning C4715: 'compression': not all control paths return a value
   CompressionAndDecompression.vcxproj -> D:\‏‏CompressionAndDecompression - macro\CompressionAndDecompression\x64\Debug\CompressionAndDecompression.exe

@@ -1,26 +1,20 @@
 Time, Function, Message
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, parsing, The size of the source file is valid
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, openFile, Unable to open the file
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, compression, The compression process starts
-Tue Aug 30 12:06:39 2022, compression, Compression completed successfully
-Tue Aug 30 12:06:39 2022, compression, The source file closed successfully
-Tue Aug 30 12:06:39 2022, compression, The compressed file closed successfully
-Tue Aug 30 12:06:39 2022, wrapCompare, Comparison started
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, decompression, Decompression started
-Tue Aug 30 12:06:39 2022, decompression, Decompression completed successfully
-Tue Aug 30 12:06:39 2022, decompression, The compressed file closed successfully
-Tue Aug 30 12:06:39 2022, decompression, The decompressed file closed successfully
-Tue Aug 30 12:06:39 2022, openFile, File opened successfully
-Tue Aug 30 12:06:39 2022, areFileSizesEquals, The size of both files are the same
-Tue Aug 30 12:06:39 2022, goToTheRelevantComparison, The files are equal. Comparison process completed successfully
-Tue Aug 30 12:06:39 2022, wrapCompare, The files are equal
-Tue Aug 30 12:06:39 2022, calculation, Calculation started
-Tue Aug 30 12:06:39 2022, calculation, Print the compression ratio to the user
-Tue Aug 30 12:06:39 2022, calculation, Print the running time
-Tue Aug 30 12:06:39 2022, calculation,  Calculation process completed successfully
+Thu Sep  1 11:12:49 2022, openFile, File opened successfully
+Thu Sep  1 11:12:49 2022, parsing, The size of the source file is valid
+Thu Sep  1 11:12:52 2022, openFile, Unable to open the file
+Thu Sep  1 11:12:53 2022, openFile, File opened successfully
+Thu Sep  1 11:12:54 2022, compression, The compression process starts
+Thu Sep  1 11:14:57 2022, compression, Compression completed successfully
+Thu Sep  1 11:14:57 2022, compression, The source file closed successfully
+Thu Sep  1 11:14:57 2022, compression, The compressed file closed successfully
+Thu Sep  1 11:15:08 2022, wrapCompare, Comparison started
+Thu Sep  1 11:15:08 2022, openFile, File opened successfully
+Thu Sep  1 11:15:08 2022, openFile, File opened successfully
+Thu Sep  1 11:15:08 2022, openFile, File opened successfully
+Thu Sep  1 11:15:08 2022, decompression, Decompression started
+Thu Sep  1 11:15:41 2022, decompression, Decompression completed successfully
+Thu Sep  1 11:15:41 2022, decompression, The compressed file closed successfully
+Thu Sep  1 11:15:41 2022, decompression, The decompressed file closed successfully
+Thu Sep  1 11:16:00 2022, openFile, File opened successfully
+Thu Sep  1 11:16:15 2022, areFileSizesEquals, File sizes are not equal - Comparison proccess failed
+Thu Sep  1 11:16:50 2022, wrapCompare, Comparison failed

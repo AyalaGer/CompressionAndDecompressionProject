@@ -12,7 +12,7 @@ extern struct Details* details;
 #define CREATE_LOG_FILE details->fpLogFile = fopen("log.csv", "a+"); fprintf(details->fpLogFile, "Time, Function, Message\n"); 
 #define CLOSE_LOG int x=fclose(details->fpLogFile);
 #else 
-#define MACRO_LOG(func,msg) 
+#define LOG_INFO(func,msg) 
 #define CREATE_LOG_FILE 
 #define CLOSE_LOG
 #endif

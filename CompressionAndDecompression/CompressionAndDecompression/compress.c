@@ -53,7 +53,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	int chunk;
 	Sequence* str = newSequence(character);
 	chunk = flag ? cnt : cnt;
-	//chunk = flag ? (fileSize % KB) : KB;
 	//streaming the data
 	while (cnt >= KB || flag) {
 		character = inputBuffer[indInputBuffer++];
@@ -64,7 +63,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 				if (cnt < chunk) {
 					flag = 1;
 					chunk = cnt;
-					//chunk = (fileSize % KB);
 				}
 				else
 					chunk = KB;
@@ -84,8 +82,7 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 		else {
 			//searching without the next character
 			searchDict(dict, str, &code);
-			//output 
-			// the code
+			//output the code
 			write16bitsToBuffer(outputBuffer, indOutputBuffer, code);
 			if (indOutputBuffer == KB - 2) {
 				fwrite(outputBuffer, KB, 1, fpOutput);
@@ -93,10 +90,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 			}
 			else
 				indOutputBuffer += 2;
-			//write16bits(fpOutput, code);
-			/*if (nextCode >= (1 << (bits)) && bits < maxBits) {
-				bits++;
-			}*/
 			//check table size. if it's okay, insert to dict
 			if (nextCode < tableSize) {
 				insertDict(dict, expandedStr, nextCode++);
@@ -113,8 +106,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 	searchDict(dict, str, &code);
 	write16bitsToBuffer(outputBuffer, indOutputBuffer, code);
 	fwrite(outputBuffer, indOutputBuffer + 2, 1, fpOutput);
-	//write16bits(fpOutput, code);
-	/*writeBinary(fpOutput, code);*/
 	deleteSequence(str);
 	deleteDictDeep(dict);
 
@@ -131,6 +122,6 @@ int compression(FILE* fpSource, FILE* fpOutput) {
 
 
 		}
-		return 0;
+		return FAILURE;
 	}
 }

@@ -10,6 +10,13 @@
 #include "log.h"
 extern struct Details* details;
 
+void deleteTable(Sequence* stringTable) {
+	for (int i = 0; i < TABLE_SIZE; i++)
+	{
+		deleteSequence(&stringTable[i]);
+	}
+}
+
 void writeToTxtFile(FILE* fp, Sequence* str) {
 	for (int i = 0; i < str->count; i++)
 		putc((unsigned int)str->data[i], fp);
@@ -31,7 +38,7 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	prevCode = read16bits(fpIn);
 	if (prevCode == -1) {
 		LOG_INFO(__func__,"The compressed file is empty")
-		return 0;
+		return FAILURE;
 	}		
 	//write to output file the translation of the first code-stringTable[prevCode] .
 	writeToTxtFile(fpOut, stringTable[prevCode]);
@@ -65,13 +72,13 @@ int decompression(FILE* fpIn, FILE* fpOut) {
 	//deleteSequence(insertString);
 	//deleteSequence(outputStr);
 	LOG_INFO(__func__,"Decompression completed successfully")
-	if (closeFile(fpIn) ) {
+	if (closeFile(fpIn)==SUCCESS) {
 		LOG_INFO(__func__,"The compressed file closed successfully")
-		if (closeFile(fpOut)) {
+		if (closeFile(fpOut)==SUCCESS) {
 			LOG_INFO(__func__,"The decompressed file closed successfully")
-			return 1;
+			return SUCCESS;
 		}
-		return 0;
+		return FAILURE;
 	}
-	return 0;
+	return FAILURE;
 }

@@ -4,12 +4,6 @@
 #include <stdio.h>
 #include "sequence.h"
 
-/*
- COURSE:        CS 360 Spring 2018
- ASSIGNMENT:    1
- AUTHOR:        Austin Horjus
- */
-
 Sequence* newSequence(unsigned char firstByte) {
 	Sequence* newSequence = (Sequence*)malloc(sizeof(Sequence));
 	newSequence->count = 1;

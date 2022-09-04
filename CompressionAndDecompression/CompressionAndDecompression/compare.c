@@ -26,22 +26,22 @@ int position = 0;
 int wrapDecompression(FILE* fpCompressed) {
 	//Open the output Decompression file and print the status to the log file.
 
-	if (openFile(pathOutputDecompression, &fpOutputDecompression, "a+") == 1) {
+	if (openFile(pathOutputDecompression, &fpOutputDecompression, "a+") == SUCCESS) {
 		//Call the decompression function
 		int decompressionResult = decompression(fpCompressed, fpOutputDecompression);
 		//Check if the decompression proccess completed successfuly. and print the status to the log file.
-		if (decompressionResult != 1) {
+		if (decompressionResult ==FAILURE) {
 			//print to log file
 			 LOG_INFO(__func__,"Decompression in comparison failed")
-			return 0;
+			return FAILURE;
 		}
 		//print to log file
 		
-		return 1;
+		return SUCCESS;
 	}
 	else {
 		//print to log file
-		return 0;
+		return FAILURE;
 	}
 }
 
@@ -52,35 +52,12 @@ int areFileSizesEquals() {
 	if (sourceFileSize == decompressedFileSize) {
 		//print to log file
 		LOG_INFO(__func__,"The size of both files are the same")
-		return 1;
+		return SUCCESS;
 	}
 	//print to log file
 	LOG_INFO(__func__,"File sizes are not equal - Comparison proccess failed")
-	return 0;
+	return FAILURE;
 }
-
-
-//int chComparison(FILE* fpSource) {
-//	char chInSurceFile = getc(fpSource);
-//	char chInDecompressedFile = getc(fpOutputDecompression);
-//	// Over on the file character character untill the end of file.
-//	while (chInSurceFile != EOF && chInDecompressedFile != EOF) {
-//		//check if the characters are not the same.
-//		if (chInSurceFile != chInDecompressedFile) {
-//			//Remove the decompressed file 
-//			removeFile(pathOutputDecompression);
-//			return 0;
-//		}
-//		//Continue only if the characters are the same.
-//		position++;
-//		chInSurceFile = getc(fpSource);
-//		chInDecompressedFile = getc(fpOutputDecompression);
-//	}
-//	//Remove the decompressed file 
-//	removeFile(pathOutputDecompression);
-//	return 1;
-//}
-
 
 int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[K_BUFFER_SIZE], unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE], int fileSize) {
 	//Define the variables for the result from the fread function.
@@ -103,14 +80,14 @@ int kComparison(FILE* fpSource, unsigned char fpSourceKBuffer[K_BUFFER_SIZE], un
 			closeFile(fpOutputDecompression);
 			//Remove the decompressed file.
 			removeFile(pathOutputDecompression);
-			return 0;
+			return FAILURE;
 		}
 	} while (countInSurceFile);
 	//Close the decompressed file before the remove. (?) ask if success
 	//closeFile(fpOutputDecompression);
 	//remove the decompressed file.
 	//removeFile(pathOutputDecompression);
-	return 1;
+	return SUCCESS;
 }
 
 int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed) {
@@ -127,10 +104,10 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 		//Define the buffers with the relevant size.
 		unsigned char fpSourceKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpSource.
 		unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
-		if (kComparison(fpSouce, fpSourceKBuffer, fpDecompressedKBuffer, sizeFile) != 1) {
+		if (kComparison(fpSouce, fpSourceKBuffer, fpDecompressedKBuffer, sizeFile) != SUCCESS) {
 			//print to log file
 			LOG_INFO(__func__,"The files are not equal")
-			return 0;
+			return FAILURE;
 		}
 	}
 
@@ -138,63 +115,57 @@ int goToTheRelevantComparison(int sizeFile, FILE* fpSouce, FILE* fpDeconpressed)
 	else {
 		//print to log file
 		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "the size files is not correct! at: %s.", calcTime());
-		return 0;
+		return FAILURE;
 	}
 	//print to log file
 	LOG_INFO(__func__,"The files are equal. Comparison process completed successfully")
-	return 1;
+	return SUCCESS;
 }
 
 int wrapCompare()
 {
 	//Define two parameters:fpCompressed - a pointer to the compressed file and fpSource - pointer
 	// to the source file.
-	FILE* fpSource = NULL, * fpCompressed = NULL;
-	
+	FILE* fpSource = NULL, * fpCompressed = NULL;	
 	//Print to the log file the comparison process has begun.
 	LOG_INFO(__func__,"Comparison started")
-
-
 	//Open files and prints the status to the log file.
-	if (openFile(details->inputFilePath, &fpSource, "r") == 1 && openFile(details->outputFilePath, &fpCompressed, "rb") == 1) {
-		//Start decompression proccess.
-		int wrapDecompressionResult = wrapDecompression(fpCompressed);
-		//Check if the decompression proccess failed.
-		if (wrapDecompressionResult == 0) {
-			LOG_INFO(__func__,"Parsing decompression failed")
-			//remove the decompressed file 
-			removeFile(pathOutputDecompression);
-			return 0;
-		}
-		openFile(pathOutputDecompression, &fpOutputDecompression, "r");
-		//continue if the decompression proccess completed successfuly.
-		
-		//check if the files size are the same and continue only if it is.
-		if (areFileSizesEquals() == 1) {
-			//continue only if the goToTheRelevantComparison successfuly
-			if (goToTheRelevantComparison(details->inputFileSize, fpSource, fpOutputDecompression) == 1) {
-				//print to log file
-				LOG_INFO(__func__,"The files are equal")
-				return 1;
+		if (openFile(details->inputFilePath, &fpSource, "r") == SUCCESS) {
+			if (openFile(details->outputFilePath, &fpCompressed, "rb") == SUCCESS) {
+				//Start decompression proccess.
+				int wrapDecompressionResult = wrapDecompression(fpCompressed);
+				//Check if the decompression proccess failed.
+				if (wrapDecompressionResult == FAILURE) {
+					LOG_INFO(__func__, "Parsing decompression failed")
+						//remove the decompressed file 
+						removeFile(pathOutputDecompression);
+					return FAILURE;
+				}
+				if (openFile(pathOutputDecompression, &fpOutputDecompression, "r")==FAILURE) {
+					LOG_INFO(__func__, "unable to open the comparison file")
+						return FAILURE;
+				}
+
+				//check if the files size are the same and continue only if it is.
+				if (areFileSizesEquals() == SUCCESS) {
+					//Define the buffers with the relevant size.
+					unsigned char fpSourceKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpSource.
+					unsigned char fpDecompressedKBuffer[K_BUFFER_SIZE]; // 1 kB buffer for the fpDecompressed.
+					if (kComparison(fpSource, fpSourceKBuffer, fpDecompressedKBuffer, details->inputFileSize)==SUCCESS) {
+						LOG_INFO(__func__, "comparison completed successfully")
+						return SUCCESS;
+					}
+				}
+				LOG_INFO(__func__, "Comparison failed")
+					return FAILURE;
 			}
-			//print to log file
-			LOG_INFO(__func__,"The files are not equal")
-			return 0;
+			else {
+				LOG_INFO(__func__, "unable to open the output file")
+					return FAILURE;
+			}
 		}
-		//print to log file
-		LOG_INFO(__func__,"Comparison failed")
-		return 0;
-	}
-	else if (openFile(details->inputFilePath, &fpSource, "r") == 1 && openFile(details->outputFilePath, &fpCompressed, "a+") == 0) {
-		//print to log file
-		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the compressed file at:  %s.", calcTime());
-	}
-	else if (openFile(details->inputFilePath, &fpSource, "r") == 0 && openFile(details->outputFilePath, &fpCompressed, "a+") == 1) {
-		//print to log file
-		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the source file at:  %s.", calcTime());
-	}
-	else {
-		//print to log file
-		//ENABLE_DEBUG_LOG&& fprintf(details->fpLogFile, "Unable to open the compressed file and the source file at:  %s.", calcTime());
-	}
+		else {
+			LOG_INFO(__func__, "unable to open the source file")
+				return FAILURE;
+		}
 }

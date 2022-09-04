@@ -7,9 +7,9 @@ extern struct Details* details;
 
 int closeFile(FILE* fp) {
 	if (fclose(fp) == 0)
-		return 1;
+		return SUCCESS;
 	else
-		return 0;
+		return FAILURE;
 
 }
 
@@ -17,21 +17,21 @@ int openFile(char* fPath, FILE** fp, char* mode) {
 	*fp = fopen(fPath, mode);
 	if (*fp == NULL) {
 		LOG_INFO(__func__,"Unable to open the file")
-		return 0;
+		return FAILURE;
 	}
 	LOG_INFO(__func__,"File opened successfully")
-	return 1;
+	return SUCCESS;
 }
 
 int removeFile(char* fPath) {
 	if (remove(fPath) == 0) {
 		LOG_INFO(__func__,"Deleted file successfuly")
-		return 1;
+		return SUCCESS;
 	}
 	else
 	{
 		LOG_INFO(__func__,"The file cannot be deleted")
-		return 0;
+		return FAILURE;
 	}
 }
 
